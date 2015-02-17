@@ -1,0 +1,9 @@
+node_modules/
+photos/
+public/posters/
+*.DS_Store
+
+config/dev.json
+config/test.json
+config/prod.json
+

@@ -1,0 +1,8 @@
+Cuadrito.co
+
+Para correr este ejemplo de integracion con Conekta, necesitas tener:
+
+1) Corriendo Mongo
+2) Corriendo Redis
+3) Quitar .example del nombre del archivo /config/dev.json.example y configurar el api de conekta, instagram, sendgrid y tu base de datos de mongo
+4) Tener instalado Cairo y node-canvas (https://github.com/Automattic/node-canvas)

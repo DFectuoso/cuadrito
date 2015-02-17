@@ -1,0 +1,658 @@
+/*
+
+TEMPLATE NAME: Fraiche
+CREATED: August 2013
+AUTHOR: Kevin Mckoy
+COMPANY: ZTApps
+WEBSITE: http://ztapps.tk/
+
+*/
+
+
+/*==========================================================*/
+/*================= BOOTSTRAP OVERIDE ======================*/
+/*==========================================================*/
+.navbar
+{
+	padding:0;
+	background-color:transparent;
+}
+
+.navbar-inner
+{
+	background-image:none;
+	background-color:transparent;
+	border:none;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	box-shadow:none;
+}
+
+.navbar a.active
+{
+	color:#ef3c59;
+	border:0;
+}
+
+.navbar .nav > li
+{
+	float:left;
+}
+
+.navbar .nav > li > a
+{
+	color:#fff;
+	font-family:"Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+	text-shadow:none;
+	padding:30px 20px;
+	font-size:30px;
+	text-align:center;
+}
+
+.navbar .nav li.logo a
+{
+	padding:0;
+}
+
+.navbar .nav > .active > a,.navbar .nav > .active > a:hover,.navbar .nav > .active > a:focus
+{
+	background:none!important;
+}
+
+.navbar .nav > li > a:focus,.navbar .nav > li > a:hover
+{
+	color:#ef3c59!important;
+}
+
+.navbar .nav > li > a:hover,.navbar .nav > .active > a:hover
+{
+	color:#f5f5f5;
+	background:transparent;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	box-shadow:none;
+}
+
+.navbar .nav > .active > a
+{
+	background:transparent;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	box-shadow:none;
+	color:white;
+}
+
+.navbar .nav
+{
+	float:none;
+	display:table;
+	margin:auto;
+	padding-left:35px;
+}
+
+.icon-bar
+{
+	display:none;
+}
+
+/*==========================================================*/
+/*===================== GENERAL LAYOUT =====================*/
+/*==========================================================*/
+h1
+{
+	text-align:center;
+	font-weight:normal;
+	margin-bottom:50px;
+	font-size:58px;
+	line-height:1.5;
+}
+
+h2,h3
+{
+	font-family:"Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+	font-weight:normal;
+	text-align:center;
+}
+
+h2
+{
+	font-size:48px;
+	margin-bottom:35px;
+	text-transform:uppercase;
+	font-weight:bold;
+}
+
+p
+{
+	font-size:17px;
+	color:#fff;
+	line-height:33px;
+	margin:0 auto;
+	padding:0;
+}
+
+img
+{
+	display:block;
+	margin:auto;
+}
+
+a
+{
+	color:#ef3c59;
+}
+
+a:hover
+{
+	text-decoration:none;
+}
+
+section
+{
+	padding:40px 0;
+}
+
+input[type=text]
+{
+	border:none;
+	background:#4d576d;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	box-shadow:none;
+	padding:0 12px;
+	height:50px;
+	color:#fff;
+}
+
+input[type=text]:focus
+{
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	box-shadow:none;
+	border:1px solid #33e0f4;
+}
+
+textarea[type=text]
+{
+	border:none;
+	background-color:#4d576d;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	box-shadow:none;
+	padding:12px;
+	color:#fff;
+}
+
+textarea[type=text]:focus
+{
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	box-shadow:none;
+	border:1px solid #33e0f4;
+}
+
+.button
+{
+	-moz-border-radius:5px / 4px;
+	-webkit-border-radius:5px / 4px;
+	border-radius:5px / 4px;
+	-moz-background-clip:padding;
+	-webkit-background-clip:padding-box;
+	background-clip:padding-box;
+	background-color:#ef3c59;
+	color:white;
+	font-family:"Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+	font-size:23px;
+	text-transform:uppercase;
+	text-align:center;
+	display:block;
+	padding:20px 0;
+	width:250px;
+	margin:auto;
+}
+
+.button:hover,.button:focus:hover
+{
+	color:#f5f5f5;
+	background-color:#cc364f;
+	text-decoration:none;
+}
+
+.button:focus
+{
+	outline:none;
+}
+
+button
+{
+	-moz-background-clip:padding;
+	-webkit-background-clip:padding-box;
+	background-clip:padding-box;
+	background-color:#ef3c59;
+	color:white;
+	font-family:"Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+	font-size:23px;
+	text-transform:uppercase;
+	text-align:center;
+	display:block;
+	padding:20px 0;
+	width:250px;
+	margin:auto;
+	border:none;
+}
+
+button:hover,button:focus
+{
+	color:#f5f5f5;
+	background-color:#cc364f;
+	text-decoration:none;
+}
+
+button:focus
+{
+	outline:none;
+}
+
+.facebook {
+	background-image: url(img/social/facebook.png);
+}
+
+.blogger {
+	background-image: url(img/social/blogger.png);
+}
+
+.dribble {
+	background-image: url(img/social/dribbble.png);
+}
+
+.dribbble {
+	background-image: url(img/social/dribbble.png);
+}
+
+.digg {
+	background-image: url(img/social/digg.png);
+}
+
+li.myspace {
+	background-image: url(img/social/myspace.png);
+}
+
+.stumbleupon {
+	background-image: url(img/social/stumbleupon.png);
+}
+
+.evernote {
+	background-image: url(img/social/Evernote.png);
+}
+
+.vimeo {
+	background-image: url(img/social/vimeo.png);
+}
+
+.twitter {
+	background-image: url(img/social/twitter.png);
+}
+
+.youtube {
+	background-image: url(img/social/youtube.png);
+}
+
+.friendfeed {
+	background-image: url(img/social/freiendfeed.png);
+}
+
+.rss {
+	background-image: url(img/social/rss.png);
+}
+
+/*==========================================================*/
+/*========================= BODY ===========================*/
+/*==========================================================*/
+body
+{
+	color:white;
+	font-size:16px;
+	line-height:1.3;
+	font-family:Montserrat, sans-serif;
+	background-color:#464a7b;
+	background-attachment:fixed;
+	background-position:top;
+	height:580px;
+	width:auto;
+	background-image:url(../img/background.png);
+	background-repeat:no-repeat;
+	background-size:cover;
+    padding: 0;
+}
+
+/*==========================================================*/
+/*====================== HEADER ============================*/
+/*==========================================================*/
+.header
+{
+	background-image:url(../images/iconpattern.png);
+	padding:40px 0 80px;
+}
+
+header
+{
+	width:100%;
+}
+
+.content
+{
+	padding-bottom:6em;
+	margin:0;
+	max-width:100%;
+}
+
+header .main-text
+{
+	padding-top:6em;
+}
+
+/*==========================================================*/
+/*======================== ABOUT ===========================*/
+/*==========================================================*/
+#about
+{
+	background-color:#fff;
+}
+
+#about h2
+{
+	color:#4b4542;
+}
+
+#about h3
+{
+	color:#574f4b;
+	text-align:center;
+}
+
+#about h4
+{
+	color:#ef3c59;
+	text-transform:uppercase;
+	text-align:center;
+}
+
+#about p
+{
+	color:#6e6560;
+}
+
+#about img
+{
+	transition:all 300ms ease-out;
+	-webkit-transition:all 300ms ease-out;
+}
+
+#about img:hover
+{
+	transform:translate(0px,-24px);
+	-ms-transform:translate(0px,-24px);
+	-webkit-transform:translate(0px,-24px);
+}
+
+#about div.social {
+	margin:0 auto;
+    padding:0;
+	text-align:center;
+}
+
+#about .social > a > div {
+    margin:0 auto;
+    padding:0 10px;
+    height:64px;
+    width:64px;
+    display:inline-block;
+    background-repeat:no-repeat;
+}
+
+/*==========================================================*/
+/*======================= QUOTE ============================*/
+/*==========================================================*/
+#quote
+{
+	background-color:rgba(0,0,0,0.5);
+}
+
+#quote h2
+{
+	color:#fff;
+}
+
+/*==========================================================*/
+/*===================== SERVICES ===========================*/
+/*==========================================================*/
+#services
+{
+	background-color:#fff;
+	text-align:center;
+}
+
+#services h2
+{
+	color:#4b4542;
+}
+
+#services h3
+{
+	color:#574f4b;
+}
+
+#services p
+{
+	color:#6e6560;
+	text-align:center;
+	margin-bottom:10px;
+}
+
+#services a
+{
+	text-transform:uppercase;
+}
+
+#services .icon-container
+{
+	transition:all 300ms ease-out;
+	-webkit-transition:all 300ms ease-out;
+	background-color:#cc364f;
+	border-radius:100px;
+	height:200px;
+	width:200px;
+	margin-bottom:30px;
+	margin:10px auto 30px;
+}
+
+#services .icon-container:hover
+{
+	transform:translate(0px,-24px);
+	-ms-transform:translate(0px,-24px);
+	-webkit-transform:translate(0px,-24px);
+}
+
+#services img
+{
+	height:200px;
+	width:auto;
+}
+
+/*==========================================================*/
+/*====================== CLIENTS ===========================*/
+/*==========================================================*/
+#clients
+{
+	background-color:rgba(0,0,0,0.5);
+}
+
+#clients h2
+{
+	color:#fff;
+}
+
+#clients ul
+{
+	list-style:none;
+	margin:0 auto;
+	text-align:center;
+    padding:0;
+}
+
+#clients ul > li
+{
+	display:inline-block;
+	margin:0 20px;
+}
+
+#clients img
+{
+	height:auto;
+	width:160px;
+}
+
+/*==========================================================*/
+/*====================== PORTFOLIO =========================*/
+/*==========================================================*/
+#portfolio
+{
+	background-color:#fff;
+}
+
+#portfolio h2
+{
+	color:#4b4542;
+}
+
+#portfolio h3
+{
+	color:#574f4b;
+}
+
+#portfolio p
+{
+	color:#6e6560;
+	text-align:center;
+}
+
+#portfolio .og-details p
+{
+	text-align:left;
+}
+
+#portfolio .container
+{
+	max-width:100%;
+}
+
+/*==========================================================*/
+/*======================= V-CARD ===========================*/
+/*==========================================================*/
+#v-card
+{
+	background-color:rgba(0,0,0,0.5);
+}
+
+#v-card h2
+{
+	color:#fff;
+}
+
+/*==========================================================*/
+/*======================== CONTACT =========================*/
+/*==========================================================*/
+#contact
+{
+	background-color:#363b48;
+}
+
+#contact h2
+{
+	color:#cc364f;
+	text-align:center;
+}
+
+#contact textarea
+{
+	width:100%;
+	height:100px;
+	margin-bottom:30px;
+    border:none;
+	background-color:#4d576d;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	box-shadow:none;
+	padding:12px;
+	color:#fff;
+}
+
+#contact textarea:focus {
+    -webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	box-shadow:none;
+	border:1px solid #33e0f4;
+}
+
+footer
+{
+	background-color:#262a33;
+	padding:30px 0;
+	text-align:center;
+}
+
+/*==========================================================*/
+/*========================= MEDIA ==========================*/
+/*==========================================================*/
+@media screen and (max-width: 767px) {
+
+    body {
+        padding: 0;
+    }
+
+    .section {
+        padding: 0 15px 0 20px;
+    }
+
+    .person {
+        display: block;
+        margin: auto auto 80px;
+    }
+
+    .navbar {
+        margin:10px 10px;
+    }
+
+    .navbar .nav > li {
+        float: none;
+        height: 40px;
+    }
+
+    .navbar .nav {
+        display: inline;
+    }
+
+    .navbar .nav .logo {
+        display: none;
+    }
+
+    .navbar .nav > li > a {
+        text-align: left;
+    }
+
+    .icon-bar {
+        display: block;
+    }
+
+    header .main-text {
+        padding-top:2em;
+    }
+
+    #about .row div {
+        margin-bottom:40px;
+    }
+
+    #services .row div {
+        margin-bottom:40px;
+    }
+}

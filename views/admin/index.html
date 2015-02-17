@@ -1,0 +1,19 @@
+{% extends '../layouts/app.html' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="banner">
+  <h1>Admin</h1>
+</div>
+
+
+<div class="jumbotron">
+  <p class="lead">Welcome {{res.locals.user.username}}</p>
+  <h1>Total Users: <span id="totalUsers">{{totalUsers}}<span></h1>
+</div>
+
+{% endblock %}

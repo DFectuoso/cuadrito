@@ -1,0 +1,152 @@
+{% extends '../layouts/app.html' %}
+
+{% block title %}Productos{% endblock %}
+
+
+{% block head %}
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    var next_max_id;
+    var category;
+    var photos = [];
+    var goal = {{quantity}}
+    var next_url = "";
+
+    function clearPhotos(){
+      $("#og-grid").html("");
+    }
+
+    function weAreDone(){
+      $("#og-grid").html("");
+      $("#loadMoreButton").hide();
+
+      $.post("/app/order/create", {photos: JSON.stringify(photos), quantity: goal}, function(data, status){
+        $("#og-grid").append( "<li><img src='" + data.poster_url + "'/></li>" );
+        $("#nextStepButton").show();
+        next_url = data.redirect_url;
+      });
+
+
+
+
+    }
+
+    function preLoadOnServer(media){
+      $.post("/app/predownload/image", {photo: JSON.stringify(media)}, function(data, status){
+        console.log(data);
+      });
+    }
+
+    function insertPhoto(media){
+      var permanentMedia = media;
+      var url = media.images.low_resolution.url;
+      var id = media.id;
+      $("#og-grid").append( "<li><a href='javascript:void(0);' id=" + id + "><img src='" + url + "'/></a></li>" );
+      $("#"+id).click(function(){
+        // We clicked one, let's preload it on the server
+        photos.push(permanentMedia);
+        preLoadOnServer(permanentMedia);
+        $("#"+id).addClass("faded");
+        $("#"+id).click(function(){});
+        ///// update selection
+        $("#currentQuantity").html("" + photos.length)
+        ///// are we done yet?
+        if(photos.length == goal){
+          weAreDone();
+        }
+
+      })
+    }
+
+    function handleImages(data, status){
+      clearPhotos();
+      console.log(data)
+      next_max_id = typeof data.pagination.next_max_id != 'undefined' ? data.pagination.next_max_id : 0;
+      next_max_id = typeof data.pagination.next_max_like_id != 'undefined' ? data.pagination.next_max_like_id : next_max_id;
+      for(var i = 0; i < data.medias.length; i++){
+        var media = data.medias[i];
+        insertPhoto(media);
+      }
+    }
+
+    function getMore(){
+      $.get("/app/photos/category?cat="+category+"&max_id="+next_max_id, handleImages);
+    }
+
+    function getCategory(cat){
+      category = cat;
+      $.get("/app/photos/category?cat="+cat, handleImages);
+    }
+
+    jQuery(function($) {
+      $("#likedButton").click(function() {
+        getCategory("liked")
+      });
+      $("#uploadedButton").click(function() {
+        getCategory("uploaded")
+      });
+      $("#streamButton").click(function() {
+        getCategory("stream")
+      });
+      $("#loadMoreButton").click(function() {
+        getMore()
+      });
+
+      $("#nextStepButton").click(function(){
+        window.location.href = next_url;
+      })
+
+      // prepick he liked row to start:
+      $("#likedButton").click();
+
+    });
+
+  </script>
+{% endblock %}
+{% block content %}
+<div class="banner" style="color:black;">
+  <div class="container">
+
+  <div class="row">
+    <div class="col-lg-2">
+      <h3>Navegar por:</h3>
+    </div>
+    <div class="col-lg-1">
+      <button class="btn btn-default btn-sm pickNavigationButton" id="likedButton">Liked</button>
+    </div>
+    <div class="col-lg-1">
+      <button class="btn btn-default btn-sm pickNavigationButton" id="uploadedButton">Uploaded</button>
+    </div>
+    <div class="col-lg-1">
+      <button class="btn btn-default btn-sm pickNavigationButton" id="streamButton">Stream</button>
+    </div>
+    <div class="col-lg-5">
+
+    </div>
+    <div class="col-lg-2">
+      <h3><span id="currentQuantity">0</span>/{{quantity}}</h3>
+    </div>
+  </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <ul id="og-grid" class="og-grid">
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <button class="btn btn-default btn-sm pickNavigationButton" id="loadMoreButton"> Cargar mas imagenes </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12" style="text-align:center;">
+        <button class="btn btn-success btn-lg" id="nextStepButton" style="display:none;"> Siguiente paso </button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

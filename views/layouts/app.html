@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %}Cuadrito{% endblock %}</title>
+	<link rel="shortcut icon" href="/img/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Css -->
+	<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="/css/style.css" rel="stylesheet">
+	<link href="/css/custom.css" rel="stylesheet">
+	<link href="/css/thumb-grid.css" rel="stylesheet">
+	{% block head %}{% endblock %}
+</head>
+
+<body>
+
+	<header style="background-color:rgba(0, 0, 0, 0.5);">
+		<div class="content">
+			<div class="row">
+				<div class="col-lg-10 col-lg-offset-1">
+					<div class="navbar">
+						<div class="navbar-inner">
+							<div class="container">
+								<a class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+									<span class="icon-bar">
+										<img src="/img/logo.png" style="height:80px;width:auto;" alt="" />
+									</span>
+								</a>
+								<div class="nav-collapse collapse">
+									<ul class="nav">
+										<li class="active">
+											<a href="#services">servicio</a>
+										</li>
+										<li>
+											<a href="#quote">misión</a>
+										</li>
+										<li class="logo">
+											<a href="#">
+												<img src="/img/logo.png" alt="" />
+											</a>
+										</li>
+										<li>
+											<a href="#contact">contacto</a>
+										</li>
+										<li>
+											<a href="/logout">logout</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</header>
+
+
+	<section id="content">
+		{% block content %}{% endblock %}
+	</section>
+
+
+
+	<section id="contact-inside">
+		<div class="container">
+
+			<h2>Forma de contacto.</h2>
+
+			<form class="navbar-form" style="width:90%;max-width:600px;margin:0 auto;" action="/contactForm" id="contactform" method="post" name="contactform">
+				<div id='contactform_name_errorloc' style="color:#cc364f; margin: 0px 0px 5px 0px;border-radius:5px;font-size:9pt;"></div>
+				<input id="yourName" name="name" type="text" class="form-control" style="width: 100%;margin-bottom:20px;" placeholder="Nombre*">
+				<div id='contactform_email_errorloc' style="color:#cc364f; margin: 0px 0px 5px 0px;border-radius:5px;font-size:9pt;"></div>
+				<input id="yourEmail" name="email" type="text" class="form-control" style="width: 100%;margin-bottom:20px;" placeholder="Correo*">
+				<div id='contactform_message_errorloc' style="color:#cc364f; margin: 0px 0px 5px 0px;border-radius:5px;font-size:9pt;"></div>
+				<textarea name="message" id="yourMessage" class="form-control" placeholder="Mensaje*"></textarea>
+				<button type="submit" value="Submit" style="width:320px;">Enviar mensaje</button>
+			</form>
+
+		</div>
+	</section>
+
+	<footer>
+		<div class="container">
+			<h4>&copy; 2015 Brozilinator ProDuctions <a href="http://twitter.com/dfect">@DFect</a> y <a href="http://twitter.com/rlomeli88">@rlomeli88</a></h4>
+		</div>
+	</footer>
+
+
+	<!-- JavaScript plugins (requires jQuery) -->
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+	<script src="js/respond.js"></script>
+	<script src="js/modernizr.custom.js"></script>
+	<script src="js/grid.js"></script>
+	<script src="js/gen_validatorv31.js"></script>
+
+</body>
+
+</html>

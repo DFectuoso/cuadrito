@@ -1,0 +1,38 @@
+{% extends '../layouts/app.html' %}
+
+{% block title %}Productos{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="banner" style="color:black;">
+	<h1 style="margin-bottom:10px;">Selecciona el formato</h1>
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-lg-12">
+				<ul id="og-grid" class="og-grid">
+					<li>
+						<a href="/app/photos/pick?q=s" data-largesrc="img/work-01.jpg" data-title="Azuki bean" data-description="Swiss chard pumpkin bunya nuts maize plantain aubergine napa cabbage soko coriander sweet pepper water spinach winter purslane shallot tigernut lentil beetroot.">
+							<img src="/img/option-01.png" alt="img01" />
+							38 cm x 38 cm <br/>
+							$229
+						</a>
+					</li>
+					<li>
+						<a href="/app/photos/pick?q=m" data-largesrc="img/work-02.jpg" data-title="Veggies sunt bona vobis" data-description="Komatsuna prairie turnip wattle seed artichoke mustard horseradish taro rutabaga ricebean carrot black-eyed pea turnip greens beetroot yarrow watercress kombu.">
+							<img src="/img/option-02.png" alt="img02" />
+							50 cm x 50 cm <br/>
+							$249
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+{% endblock %}

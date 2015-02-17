@@ -1,0 +1,148 @@
+{% extends '../layouts/app.html' %}
+
+{% block title %}Comprar{% endblock %}
+
+{% block head %}
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://conektaapi.s3.amazonaws.com/v0.3.2/js/conekta.js"></script>
+
+  <script type="text/javascript">
+    Conekta.setPublishableKey('Qfw4ZozppXFtvDqaUdt1');
+
+    var conektaErrorResponseHandler;
+    conektaErrorResponseHandler = function(response) {
+      var $form;
+      $form = $("#card-form");
+      /* Muestra los errores en la forma */
+      $form.find(".card-errors").text(response.message);
+      $form.find("button").prop("disabled", false);
+    };
+
+    var conektaSuccessResponseHandler;
+    conektaSuccessResponseHandler = function(token) {
+      var $form;
+      $form = $("#card-form");
+      /* Inserta el token_id en la forma para que se envíe al servidor */
+      $form.append($("<input type=\"hidden\" name=\"conektaTokenId\" />").val(token.id));
+      /* and submit */
+      $form.get(0).submit();
+    };
+
+    jQuery(function($) {
+      $(".newCardInput").click(function() {
+        $("#newCardRadio").prop('checked', true);
+      });
+
+      $("#card-form").submit(function(event) {
+
+        if($("input:radio[name=cardOptions]:checked").val() == "newCard"){
+          var $form;
+          $form = $(this);
+
+          /* Previene hacer submit más de una vez */
+          $form.find("button").prop("disabled", true);
+          Conekta.token.create($form, conektaSuccessResponseHandler, conektaErrorResponseHandler);
+          /* Previene que la información de la forma sea enviada al servidor */
+          return false;
+        } else {
+          // Eresa card
+          $("#cardName").val("")
+          $("#cardNumber").val("")
+          $("#cardCVC").val("")
+        }
+      });
+    });
+
+  </script>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-lg-10 col-lg-offset-1 main-text">
+    <h2>Imprime tus cuadrito $229.00 con envio!</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-10 col-lg-offset-1 main-text">
+    <form action="" method="POST" id="card-form">
+
+      <span class="card-errors"></span>
+      <div class="row">
+        <div class="col-lg-6">
+          {% for card in cards %}
+            <div class="radio">
+              <label>
+                <input type="radio" name="cardOptions" value={{card.id}} {% if defaultCardId == card.id %}checked{% endif %}>
+                **** **** **** {{card.last4}} ({{card.brand}})
+              </label>
+            </div>
+          {% endfor %}
+          <div class="radio">
+            <label>
+              <input type="radio" name="cardOptions" id="newCardRadio" value="newCard" {% if cards.length==0 %}checked{% endif %}>
+              <label>Tarjeta nueva</label>
+              <div class="form-group">
+                <label for="cardName">Nombre del tarjetahabiente</label>
+                <input type="text" id="cardName" size="20" data-conekta="card[name]" class="form-control newCardInput" />
+              </div>
+              <div class="form-group">
+                <label for="cardNumber">Número de tarjeta de crédito</label>
+                <input type="text" id="cardNumber" size="20" data-conekta="card[number]" class="form-control newCardInput" />
+              </div>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group ">
+                    <label for="cardCVC">CVC</label>
+                    <input type="text" id="cardCVC" size="4" data-conekta="card[cvc]" class="form-control newCardInput" />
+                  </div>
+                </div>
+                <div class="col-lg-9">
+                  <div class="form-row">
+                    <label>Fecha de expiración (MM/AAAA)</label>
+                    <div class="controls form-inline">
+                      <input type="text" size="2" data-conekta="card[exp_month]" class="form-control newCardInput expirationInput" />
+                      <span>/</span>
+                      <input type="text" size="4" data-conekta="card[exp_year]" class="form-control newCardInput expirationInput" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </label>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="col-md-5">
+            <div class="form-group">
+              <label for="telefono">Telefono</label>
+              <input type="text" id="telefono" size="20" name="phone" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="email">Correo Electronico</label>
+              <input type="text" id="email" size="20" name="email" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="address">Direccion</label>
+              <textarea class="form-control" id="address" name="address"></textarea>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <div class="row purchase-button">
+          <button type="submit" class="btn btn-success btn-lg">Pedir ahora!</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+
+
+{% endblock %}

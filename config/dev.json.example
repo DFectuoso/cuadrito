@@ -1,0 +1,24 @@
+{
+  "redis" : {
+    "secret" : "something secret",
+    "options" : {}
+  },
+  "mongo" : {
+    "db" : "DB Name"
+  },
+  "instagramoauth" : {
+    "scope" : ["basic", "likes"],
+    "redirectUri" : "http://localhost:3000/oauth",
+    "clientID": "",
+    "clientSecret": ""
+  },
+  "conekta" : {
+    "privateKey" : "SANDBOX PRIVATE KEY",
+    "publicKey" : "SANDBOX PUBLIC KEY"
+  },
+  "sendgrid" : {
+    "api_user" : "",
+    "api_key" : ""
+  },
+  "baseUrl" : "http://localhost:3000"
+}
