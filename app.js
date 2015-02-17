@@ -102,4 +102,11 @@ app.param('orderId', function(req,res, next, id){
 	});
 });
 
+//////////////
+/// LOCALS ///
+//////////////
+app.locals.mixpanel = conf.mixpanel.id;
+
+
+
 app.listen(3001);

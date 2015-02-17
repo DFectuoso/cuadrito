@@ -16,6 +16,9 @@
     "privateKey" : "SANDBOX PRIVATE KEY",
     "publicKey" : "SANDBOX PUBLIC KEY"
   },
+  "mixpanel" : {
+    "id" : "MIXPANEL ID"
+  },
   "sendgrid" : {
     "api_user" : "",
     "api_key" : ""

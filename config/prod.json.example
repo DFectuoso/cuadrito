@@ -16,6 +16,9 @@
     "privateKey" : "PRIVATE KEY",
     "publicKey" : "PUBLIC KEY"
   },
+  "mixpanel" : {
+    "id" : "MIXPANEL ID"
+  },
   "sendgrid" : {
     "api_user" : "",
     "api_key" : ""
