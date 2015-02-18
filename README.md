@@ -48,17 +48,19 @@ brew install redis
 
 ### Instalar Cairo
 
-Para instalar cairo, puedes usar port:
-
-```
-sudo port install pkgconfig libpng giflib freetype libpixman cairo
-```
+Para instalar cairo, puedes usar brew, en macosx parece que ports no funciona, por eso:
 
 Tener instalado libjpeg:
 
 ```
 brew install libjpeg
 ```
+
+```
+brew install cairo
+```
+
+Quiza tengas que instalar X11 como parte del proceso, te lo indicara en la consola.
 
 ### Instalar node-canvas y todos los demas paquetes de npm
 

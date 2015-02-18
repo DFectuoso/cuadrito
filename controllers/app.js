@@ -10,7 +10,10 @@ var controller     = require('stackers'),
 		userMiddleware = require('../middleware/user'),
 		superagent     = require('superagent'),
 		Download       = require('download'),
-    Canvas         = require('canvas');
+    Canvas         = require('canvas'),
+    Mixpanel       = require('mixpanel');
+
+var mixpanel = Mixpanel.init(conf.mixpanel.id);
 
 var Order = db.model('order'),
     User  = db.model('user');
@@ -29,13 +32,15 @@ appController.beforeEach(userMiddleware.getUser);
 
 // Render the basic options from app/index, hardcoded for now
 appController.get('', function (req, res) {
+  mixpanel.track("showed products", {distinct_id:res.locals.user.nickname});
 	res.render('app/index', req);
 });
 
 // Select the small or large poster and render app/pick, this is our main app,
 // the rest of the interactions happen from ajax request
 appController.get('/photos/pick', function (req, res) {
-	req.quantity = 16
+
+  req.quantity = 16
 	var size = req.param('q')
 	if (size == "m"){
 		req.quantity = 25
@@ -44,6 +49,7 @@ appController.get('/photos/pick', function (req, res) {
 		req.quantity = 49
 	}
 
+  mixpanel.track("picked_product", {size : size});
 	res.render('app/pick', req);
 });
 
@@ -63,6 +69,9 @@ appController.get('/photos/category', function(req, res){
 
 	var cat = req.param('cat')
 	var max_id = req.param('max_id')
+
+  mixpanel.track("loaded photos", {cat:cat, max_id:max_id});
+
 	if(cat == "liked"){
 		ig.user_self_liked({max_like_id: max_id}, handleAnswer);
 	} else if(cat == "uploaded"){
@@ -74,10 +83,13 @@ appController.get('/photos/category', function(req, res){
 
 // After the user has selected enough photos, create the order and the poster
 appController.post('/order/create', function (req, res) {
+
 	var price = 24900;
 	if (req.body.quantity == 16){
 		price = 22900;
 	}
+
+  mixpanel.track("Picked photos", {quantity: req.body.quantity, photos:JSON.parse(req.body.photos)});
 
 	////// Create a new order
 	var newOrder = new Order({
@@ -105,7 +117,8 @@ appController.post('/order/create', function (req, res) {
 
 // Render the checkout page
 appController.get('/checkout/:orderId', function (req, res) {
-  console.log("here");
+  mixpanel.track("Show checkout");
+
 	getCreditCardsForCustomer(res.locals.user.conekta_customer_id, function(err, conektaRes){
 		if(err) return res.status(500).send(err);
 
@@ -118,6 +131,10 @@ appController.get('/checkout/:orderId', function (req, res) {
 
 /// Process the checkout
 appController.post('/checkout/:orderId', function (req, res) {
+  mixpanel.track("Process checkout");
+
+  var price = 24900;
+
 	req.requestOrder.address = req.body.address
   req.requestOrder.phone = req.body.phone
   req.requestOrder.email = req.body.email
@@ -128,8 +145,10 @@ appController.post('/checkout/:orderId', function (req, res) {
 		var handler = function(err, conektaRes){
 			if(err) return res.send(500,err);
 
-			charge(res.locals.user.conekta_customer_id, 24900, "Poster de Instagram", function(err, conektaRes){
+			charge(res.locals.user.conekta_customer_id, price, "Poster de Instagram", function(err, conektaRes){
 				if(err) return res.send(500,err);
+
+        mixpanel.people.track_charge(res.locals.user.nickname, price / 100);
 
         var sendgrid = require("sendgrid")(conf.sendgrid.api_user, conf.sendgrid.api_key);
 

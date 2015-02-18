@@ -18,7 +18,8 @@
     "superagent" : "latest",
     "sendgrid" : "latest",
     "canvas" : "1.1.6",
-    "download" : "latest"
+    "download" : "latest",
+    "mixpanel" : "latest"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
