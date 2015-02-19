@@ -119,6 +119,5 @@ forever start -a --sourceDir /root/cuadrito -o ../logs/cuadrito.log -e ../logs/c
 
 ### RoadMap
 
-
 * Mejorar imagen y experiencia del checkout
 * Arreglar el proceso de seleccionar imagenes de instagram
