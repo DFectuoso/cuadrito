@@ -119,12 +119,6 @@ forever start -a --sourceDir /root/cuadrito -o ../logs/cuadrito.log -e ../logs/c
 
 ### RoadMap
 
-* Cuando Pagamos una orden, ahora si mandamos generatePrintable (y estos urls son los que se mandan por correo) y funciona para 30x30
-
-* Agregarle un margen de 200 a x y y (y restar eso para calcular el width/height)
-* Hacer el generador de los 10 printables de 11*9
-
-====
 
 * Mejorar imagen y experiencia del checkout
 * Arreglar el proceso de seleccionar imagenes de instagram

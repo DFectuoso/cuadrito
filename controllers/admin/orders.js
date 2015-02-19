@@ -30,4 +30,10 @@ orderAdminController.get('/:orderId', function (req, res) {
   res.render('admin/orders/info', req);
 });
 
+orderAdminController.get('/:orderId/regeneratePrintables', function (req, res) {
+  req.requestOrder.generatePrintables(function(order){
+    res.render('admin/orders/info', req);
+  })
+});
+
 module.exports = orderAdminController;

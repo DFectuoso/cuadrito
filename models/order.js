@@ -113,11 +113,12 @@ Order.prototype.generatePrintables = function(callback){
   // Get a new Snoocore Object
   var currentOrder = this;
 
-  var padding = 60;
-  var margin = 200;
-  var size = 4600;
 
   if (currentOrder.product == "30x30x4x4" || currentOrder.product == "30x30x5x5"){
+    var padding = 60;
+    var margin = 200;
+    var size = 4600;
+
     // Default 11x9x10
     var quantity = 16;
     var columns = 4;
@@ -198,7 +199,71 @@ Order.prototype.generatePrintables = function(callback){
     });
 
   } else {
-    saveCanvas(canvas, callback);
+
+    var width = 1063;
+    var height = 1299;
+    var padding = 106;
+    var remainingPhotos = 10;
+    var printables = []
+
+    function saveCanvas(i, canvas, callback){
+      var folder = process.cwd() + '/public/posters/'
+      var fullFilename = folder + currentOrder.id + "_" + i + '.png'
+
+
+      canvas.toBuffer(function(err, buf){
+        if (err)
+          console.log("error saving to buffer")
+        else
+          if (!fs.existsSync( folder )){ fs.mkdirSync( folder );}
+          fs.writeFile(fullFilename, buf, function(){
+            printables.push(conf.baseUrl + '/posters/' + currentOrder.id +  "_" + i + '.png')
+
+            remainingPhotos = remainingPhotos - 1;
+            if(remainingPhotos == 0){
+              currentOrder.printables = printables
+              currentOrder.save(function(err,order){
+                callback(order);
+              })
+            }
+          });
+      });
+    }
+
+    //Get all of the photos(download if necessary)
+    var photosLoadingArray = currentOrder.photos.map(function(photo){
+      return function(done){
+        Order.getOrDownload(photo, function(err, data){
+          done(null, data)
+          })
+        }
+      })
+
+    async.parallel(photosLoadingArray, function(err, photoDataArray){
+      if (err) throw err;
+
+      for(var i = 0; i < photoDataArray.length; i++){
+        var canvas = new Canvas(width, height);
+        var ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+
+        // white background
+        ctx.fillStyle = 'white';
+        //draw background / rect on entire canvas
+        ctx.fillRect(0,0,width,height);
+
+
+        var x = padding;
+        var y = padding;
+
+        var img = new Canvas.Image;
+        img.src = photoDataArray[i];
+
+        ctx.drawImage(img, x, y, width - padding * 2, width - padding * 2);
+
+        saveCanvas(i, canvas, callback);
+      }
+    });
   }
 }
 
