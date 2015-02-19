@@ -11,6 +11,7 @@
     var category;
     var photos = [];
     var goal = {{quantity}}
+    var product = "{{product}}"
     var next_url = "";
 
     function clearPhotos(){
@@ -21,15 +22,11 @@
       $("#og-grid").html("");
       $("#loadMoreButton").hide();
 
-      $.post("/app/order/create", {photos: JSON.stringify(photos), quantity: goal}, function(data, status){
+      $.post("/app/order/create", {photos: JSON.stringify(photos), quantity: goal, product:product}, function(data, status){
         $("#og-grid").append( "<li><img src='" + data.poster_url + "'/></li>" );
         $("#nextStepButton").show();
         next_url = data.redirect_url;
       });
-
-
-
-
     }
 
     function preLoadOnServer(media){
