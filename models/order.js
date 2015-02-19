@@ -114,6 +114,7 @@ Order.prototype.generatePrintables = function(callback){
   var currentOrder = this;
 
   var padding = 60;
+  var margin = 200;
   var size = 4600;
 
   if (currentOrder.product == "30x30x4x4" || currentOrder.product == "30x30x5x5"){
@@ -168,14 +169,14 @@ Order.prototype.generatePrintables = function(callback){
       //draw background / rect on entire canvas
       ctx.fillRect(0,0,size,size);
 
-      var width = size / columns;
-      var height = size / rows;
+      var width = (size - margin * 2) / columns;
+      var height = (size - margin * 2) / rows;
 
       for(var column = 0; column < columns; column++){
         for(var row = 0; row < rows; row++){
 
-          var x = column * width;
-          var y = row * height;
+          var x = column * width + margin;
+          var y = row * height + margin;
 
           var img = new Canvas.Image;
           img.src = photoDataArray[column * rows + row];
