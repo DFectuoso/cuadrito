@@ -74,8 +74,10 @@ app.post('/contactForm', function (req, res) {
 // Controllers
 var loginController = require('./controllers/login');
 var appController = require('./controllers/app');
+var checkoutController = require('./controllers/checkout');
 var adminDashboard = require('./controllers/admin/dashboard.js');
 
+checkoutController(app);
 loginController(app);
 adminDashboard(app);
 appController(app);
@@ -109,4 +111,4 @@ app.locals.mixpanel = conf.mixpanel.id;
 
 
 
-app.listen(3001);
+app.listen(conf.port);

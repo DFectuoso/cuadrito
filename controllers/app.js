@@ -39,7 +39,6 @@ appController.get('', function (req, res) {
 // Select the small or large poster and render app/pick, this is our main app,
 // the rest of the interactions happen from ajax request
 appController.get('/photos/pick', function (req, res) {
-
   req.quantity = 16
 	var size = req.param('q')
 	if (size == "m"){
@@ -107,79 +106,12 @@ appController.post('/order/create', function (req, res) {
 
         // Create the image, answer with the url.
         res.json({
-          redirect_url: "/app/checkout/" + order.id,
+          redirect_url: "/checkout/" + order.id,
           poster_url: posterUrl,
         });
       });
     })
   });
-});
-
-// Render the checkout page
-appController.get('/checkout/:orderId', function (req, res) {
-  mixpanel.track("Show checkout");
-
-	getCreditCardsForCustomer(res.locals.user.conekta_customer_id, function(err, conektaRes){
-		if(err) return res.status(500).send(err);
-
-		// Get CCs
-		req.cards = conektaRes.body.cards
-		req.defaultCardId = conektaRes.body.default_card_id
-		res.render('app/product', req);
-	})
-});
-
-/// Process the checkout
-appController.post('/checkout/:orderId', function (req, res) {
-  mixpanel.track("Process checkout");
-
-  var price = 24900;
-
-	req.requestOrder.address = req.body.address
-  req.requestOrder.phone = req.body.phone
-  req.requestOrder.email = req.body.email
-
-  req.requestOrder.save(function (err, order) {
-		if (err) { return res.status(500).send(err); }
-
-		var handler = function(err, conektaRes){
-			if(err) return res.send(500,err);
-
-			charge(res.locals.user.conekta_customer_id, price, "Poster de Instagram", function(err, conektaRes){
-				if(err) return res.send(500,err);
-
-        mixpanel.people.track_charge(res.locals.user.nickname, price / 100);
-
-        var sendgrid = require("sendgrid")(conf.sendgrid.api_user, conf.sendgrid.api_key);
-
-        var email = new sendgrid.Email();
-        email.addTo("santiago1717@gmail.com");
-        email.setFrom("santiago1717@gmail.com");
-        email.setSubject("COMPRA EN CUADRITO");
-        email.setHtml("ADDRESS: " + req.requestOrder.address + " <br>Phone: " + req.requestOrder.phone + " <br>email : " + req.requestOrder.email + " <br>Cuadrito: " + req.requestOrder.posterUrl);
-        sendgrid.send(email);
-
-        var email = new sendgrid.Email();
-        email.addTo("santiago1717@gmail.com");
-        email.setFrom(req.requestOrder.email);
-        email.setSubject("Gracias por comprar tu Cuadrito");
-        email.setHtml("Gracias por comprar tu cuadrito, en algunos momentos estaremos comunicandonos contigo al telefono que nos diste para ponernos de acuerdo con la entrega. <br> Muchas gracias! <br/> El equipo de Cuadrito.co");
-        sendgrid.send(email);
-
-
-
-				res.render('app/purchase', req);
-			})
-		}
-
-		// If we have a conektaTokenId, it means we just tokenized this card
-		if (req.body.conektaTokenId){
-			addCardToCustomer(res.locals.user.conekta_customer_id, req.body.conektaTokenId, handler)
-		} else {
-			setCardAsActive(res.locals.user.conekta_customer_id, req.body.cardOptions, handler)
-		}
-
-	});
 });
 
 // This endpoint is used to predownload the images as they are selected
@@ -197,17 +129,17 @@ function createPosterForImages(order, callback){
 
   var rows = 4;
   var columns = 4;
-  var size = 1100;
-  var padding = 10;
+  var size = 4576;
+  var padding = 40;
   if(order.photos.length == 25){
-    var size = 2000;
+    var size = 4576;
     var rows = 5;
     var columns = 5;
   }
 
 	function saveCanvas(canvas, callback){
     var folder = process.cwd() + '/public/posters/'
-    var fullFilename = folder + order.id + '.jpg'
+    var fullFilename = folder + order.id + '.png'
 
 
 		canvas.toBuffer(function(err, buf){
@@ -218,7 +150,7 @@ function createPosterForImages(order, callback){
 						fs.mkdirSync( folder );
 				}
 				fs.writeFile(fullFilename, buf, function(){
-					callback(conf.baseUrl + '/posters/' + order.id + '.jpg');
+					callback(conf.baseUrl + '/posters/' + order.id + '.png');
 				});
 		});
 	}
@@ -244,11 +176,12 @@ function createPosterForImages(order, callback){
     //draw background / rect on entire canvas
     ctx.fillRect(0,0,size,size);
 
+    var width = size / columns;
+    var height = size / rows;
+
     for(var column = 0; column < columns; column++){
       for(var row = 0; row < rows; row++){
 
-        var width = size / columns;
-        var height = size / rows;
         var x = column * width;
         var y = row * height;
 
@@ -259,7 +192,7 @@ function createPosterForImages(order, callback){
         ctx.translate(x + width / 2, y + height / 2);
         ctx.beginPath();
         ctx.rect(width / 2 * (-1) + padding, height / 2 * (-1) + padding, width - padding * 2, height - padding * 2);
-        ctx.lineWidth = 8;
+        ctx.lineWidth = 24;
         ctx.strokeStyle = 'black';
         ctx.stroke();
         ctx.drawImage(img,width / 2 * (-1) + padding ,height / 2 * (-1) + padding, width - padding * 2, height  - padding * 2);
@@ -303,54 +236,6 @@ function getOrDownload(photo, callback){
 			});
 		}
 	});
-}
-
-function addCardToCustomer(customerId, cardToken, callback){
-	superagent
-		.post('https://api.conekta.io/customers/' + customerId + '/cards/')
-		.auth(conf.conekta.privateKey, '')
-		.set('Content-type', 'application/json')
-		.set('Accept', 'application/vnd.conekta-v1.0.0+json')
-		.send({
-			token: cardToken,
-		})
-		.end(callback);
-}
-
-function setCardAsActive(customerId, cardId, callback){
-	superagent
-		.put('https://api.conekta.io/customers/' + customerId)
-		.auth(conf.conekta.privateKey, '')
-		.set('Content-type', 'application/json')
-		.set('Accept', 'application/vnd.conekta-v1.0.0+json')
-		.send({
-			default_card_id: cardId,
-		})
-		.end(callback);
-}
-
-function charge(customerId, amount, description, callback){
-	superagent
-		.post('https://api.conekta.io/charges')
-		.auth(conf.conekta.privateKey, '')
-		.set('Content-type', 'application/json')
-		.set('Accept', 'application/vnd.conekta-v1.0.0+json')
-		.send({
-			card : customerId,
-			amount : amount,
-			description : description
-		})
-		.end(callback);
-}
-
-function getCreditCardsForCustomer(customerId, callback){
-	console.log("about to ping " + 'https://api.conekta.io/customers/' + customerId)
-	superagent
-		.get('https://api.conekta.io/customers/' + customerId)
-		.auth(conf.conekta.privateKey, '')
-		.set('Content-type', 'application/json')
-		.set('Accept', 'application/vnd.conekta-v1.0.0+json')
-		.end(callback);
 }
 
 module.exports = appController;
