@@ -11,7 +11,8 @@ var orderSchema = schema({
   created      : { type : Date, default: Date.now },
   photos       : { type : Array , "default" : [] },
   price        : { type : Number },
-  posterUrl    : { type : String }
+  previewUrl   : { type : String }
+  photos       : { type : Array , "default" : [] },
 });
 
 var Order = db.model('order', orderSchema);

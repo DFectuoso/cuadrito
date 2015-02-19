@@ -119,9 +119,10 @@ forever start -a --sourceDir /root/cuadrito -o ../logs/cuadrito.log -e ../logs/c
 
 ### RoadMap
 
-* [Admin]Hacer un dashboard para ver usuarios y ordenes
-* Add previewPosterUrl
-* [Admin]Hacer que en el dashboard se pueda generar el poster "completo"
+* Hacer una funcion generatePreview and generatePrintable on Order
+* They work depending on the "type" of order, it runs the algorithm
+* Cuando Pagamos una orden, ahora si mandamos generatePrintable (y estos urls son los que se mandan por correo)
+
 * Agregarle un margen de 200 a x y y (y restar eso para calcular el width/height)
 * Tener los 3 productos con los 3 generadores
 

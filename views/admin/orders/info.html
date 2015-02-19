@@ -38,23 +38,24 @@
         {{requestOrder.status}}
       </td>
     </tr>
+    {% for photo in requestOrder.printables %}
+      <tr class="odd gradeX">
+        <td>
+          Image
+        </td>
+        <td>
+          {{photo}}
+        </td>
+      </tr>
+    {% endfor %}
     <tr class="odd gradeX">
       <td>
-        Poster Url
+        Preview Url
       </td>
       <td>
-        {{requestOrder.posterUrl}}
+        {{requestOrder.previewUrl}}
       </td>
     </tr>
-    <tr class="odd gradeX">
-      <td>
-        Preview Poster Url
-      </td>
-      <td>
-        {{requestOrder.previewPosterUrl}}
-      </td>
-    </tr>
-
     <tr class="odd gradeX">
       <td>
         User
