@@ -115,6 +115,8 @@ Order.prototype.generatePrintables = function(callback){
 
 
   if (currentOrder.product == "30x30x4x4" || currentOrder.product == "30x30x5x5"){
+    console.log("Generating printables for 30x30")
+
     var padding = 60;
     var margin = 200;
     var size = 4600;
@@ -130,7 +132,7 @@ Order.prototype.generatePrintables = function(callback){
       rows = 5;
     }
 
-    function saveCanvas(canvas, callback){
+    function saveCanvas30(canvas, finalCallback){
       var folder = process.cwd() + '/public/posters/'
       var fullFilename = folder + currentOrder.id + '.png'
 
@@ -143,7 +145,7 @@ Order.prototype.generatePrintables = function(callback){
 
             currentOrder.printables = [conf.baseUrl + '/posters/' + currentOrder.id + '.png']
             currentOrder.save(function(err,order){
-              callback(currentOrder);
+              finalCallback(currentOrder);
             })
           });
       });
@@ -195,10 +197,12 @@ Order.prototype.generatePrintables = function(callback){
         }
       }
 
-      saveCanvas(canvas, callback);
+      saveCanvas30(canvas, callback);
     });
 
   } else {
+
+    console.log("Generating printables for x10")
 
     var width = 1063;
     var height = 1299;
