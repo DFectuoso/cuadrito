@@ -1,12 +1,13 @@
 var controller = require('stackers');
 
 var User = require('../../models/user');
+var Order = require('../../models/order');
 var userMiddleware = require('../../middleware/user');
 
 var async = require('async');
 
 var dashboardAdminController = controller({
-  path : 'admin/dashboard',
+  path : '/admin',
   child : true
 });
 
@@ -26,8 +27,18 @@ dashboardAdminController.get('', function (req, res) {
     });
   };
 
+  var totalOrders = Order.count({});
+
+  queries.totalOrders = function(done){
+    totalOrders.exec(function(err, totalOrders){
+      done(err, totalOrders);
+    });
+  };
+
+
   async.parallel(queries, function(err, data){
     req.totalUsers = data.totalUsers;
+    req.totalOrders = data.totalOrders;
 
     res.render('admin/index', req);
   });

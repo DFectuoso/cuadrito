@@ -5,6 +5,7 @@ var express  = require('express'),
 	flash = require('connect-flash'),
 	session = require('express-session'),
 	logger = require('morgan'),
+	moment = require('moment'),
 	bodyParser = require('body-parser');
 
 // Load conf
@@ -23,6 +24,12 @@ app.use(express.static('./public'));
 // Template engine
 var swigHelpers = require('./views/helpers');
 swigHelpers(swig);
+
+/// Add filters
+swig.setFilter('time_since', function (input, idx) {
+	return moment(input).fromNow();
+});
+
 
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
@@ -75,12 +82,20 @@ app.post('/contactForm', function (req, res) {
 var loginController = require('./controllers/login');
 var appController = require('./controllers/app');
 var checkoutController = require('./controllers/checkout');
-var adminDashboard = require('./controllers/admin/dashboard.js');
 
 checkoutController(app);
 loginController(app);
-adminDashboard(app);
 appController(app);
+
+// Admin controllers
+var adminDashboard = require('./controllers/admin/dashboard.js');
+var adminUsers = require('./controllers/admin/users.js');
+var adminOrders = require('./controllers/admin/orders.js');
+
+adminDashboard(app);
+adminUsers(app);
+adminOrders(app);
+
 
 //////////// PARAMS
 var User    = require('./models/user');
@@ -96,7 +111,9 @@ app.param('userId', function(req,res, next, id){
 });
 
 app.param('orderId', function(req,res, next, id){
-	Order.findOne({_id:id}, function (e, order){
+	var query = Order.findOne({_id:id})
+	query.populate("user")
+	query.exec(function (e, order){
 		if (e) return res.send(500, e);
 		if (!order) return res.send(404, e);
 		req.requestOrder = order;

@@ -18,6 +18,9 @@ middleware.getUser = function(req, res, next){
       return res.redirect('/');
     }
 
+    user.lastSeen = Date.now()
+    user.save();
+
     res.locals.user = user;
 
     mixpanel.people.set(user.username, {

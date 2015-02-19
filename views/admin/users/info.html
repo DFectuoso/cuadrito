@@ -1,0 +1,58 @@
+{% extends '../../layouts/app.html' %}
+
+{% block title %}Admin User - {{requestUser.username}}{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="banner">
+  <h1>{{requestUser.username}}</h1>
+</div>
+
+<form role="form" method="post">
+  <div class="form-body">
+    <div class="form-group">
+      <label>Role</label>
+      <select class="form-control" name="role">
+        <option value="admin" {% if requestUser.role === "admin" %}selected{% endif %}>Admin</option>
+        <option value="user" {% if requestUser.role === "user" %}selected{% endif %}>User</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-actions">
+    <button type="submit" class="btn blue">Submit</button>
+  </div>
+</form>
+
+<table class="table table-striped table-bordered table-hover" id="sample_1">
+  <thead>
+    <tr>
+      <th>
+        Id
+      </th>
+      <th>
+        status
+      </th>
+      <th>
+        Created
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+    <tr class="odd gradeX">
+      <td>
+        <a href="/admin/orders/{{order.id}}">{{order.id}}</a>
+      </td>
+      <td>
+        {{order.status}}
+      </td>
+      <td>
+        {{order.created|time_since}}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

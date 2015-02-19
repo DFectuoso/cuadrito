@@ -1,0 +1,92 @@
+{% extends '../../layouts/app.html' %}
+
+{% block title %}Admin Post{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="banner">
+  <h1>Admin Order: {{requestOrder.id}}</h1>
+</div>
+
+<table class="table table-striped table-bordered table-hover" id="sample_1">
+  <thead>
+    <tr>
+      <th>
+        Key
+      </th>
+      <th>
+        Value
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="odd gradeX">
+      <td>
+        Id
+      </td>
+      <td>
+        {{requestOrder.id}}
+      </td>
+    </tr>
+    <tr class="odd gradeX">
+      <td>
+        Status
+      </td>
+      <td>
+        {{requestOrder.status}}
+      </td>
+    </tr>
+    <tr class="odd gradeX">
+      <td>
+        Poster Url
+      </td>
+      <td>
+        {{requestOrder.posterUrl}}
+      </td>
+    </tr>
+    <tr class="odd gradeX">
+      <td>
+        Preview Poster Url
+      </td>
+      <td>
+        {{requestOrder.previewPosterUrl}}
+      </td>
+    </tr>
+
+    <tr class="odd gradeX">
+      <td>
+        User
+      </td>
+      <td>
+        {{requestOrder.user.username}}
+      </td>
+    </tr>
+    <tr class="odd gradeX">
+      <td>
+        Price
+      </td>
+      <td>
+        {{requestOrder.price}}
+      </td>
+    </tr>
+    {% for photo in requestOrder.photos %}
+      <tr class="odd gradeX">
+        <td>
+          Image
+        </td>
+        <td>
+          {{photo.images.standard_resolution.url}}
+        </td>
+      </tr>
+    {% endfor %}
+
+
+
+  </tbody>
+</table>
+
+
+
+{% endblock %}

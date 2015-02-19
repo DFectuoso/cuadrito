@@ -13,7 +13,8 @@
 
 <div class="jumbotron">
   <p class="lead">Welcome {{res.locals.user.username}}</p>
-  <h1>Total Users: <span id="totalUsers">{{totalUsers}}<span></h1>
+  <h1>Total Users: <span id="totalUsers">{{totalUsers}}<span> <a href="/admin/users">view all</a></h1>
+    <h1>Total Orders: <span id="totalUsers">{{totalOrders}}<span> <a href="/admin/orders">view all</a></h1>
 </div>
 
 {% endblock %}

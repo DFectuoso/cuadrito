@@ -120,8 +120,8 @@ forever start -a --sourceDir /root/cuadrito -o ../logs/cuadrito.log -e ../logs/c
 ### RoadMap
 
 * [Admin]Hacer un dashboard para ver usuarios y ordenes
+* Add previewPosterUrl
 * [Admin]Hacer que en el dashboard se pueda generar el poster "completo"
-
 * Agregarle un margen de 200 a x y y (y restar eso para calcular el width/height)
 * Tener los 3 productos con los 3 generadores
 

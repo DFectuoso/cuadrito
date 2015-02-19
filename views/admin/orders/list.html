@@ -1,0 +1,50 @@
+{% extends '../../layouts/app.html' %}
+
+{% block title %}Admin Post{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="banner">
+  <h1>Admin Orders</h1>
+</div>
+
+<table class="table table-striped table-bordered table-hover" id="sample_1">
+  <thead>
+    <tr>
+      <th>
+        Id
+      </th>
+      <th>
+        User
+      </th>
+      <th>
+        Status
+      </th>
+      <th>
+        Created
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+    <tr class="odd gradeX">
+      <td>
+        <a href="/admin/orders/{{order.id}}">{{order.id}}</a>
+      </td>
+      <td>
+        {{order.user.username}}
+      </td>
+      <td class="center">
+        {{order.status}}
+      </td>
+      <td class="center">
+        {{order.created|time_since}}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
