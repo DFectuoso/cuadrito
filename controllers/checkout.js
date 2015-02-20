@@ -58,9 +58,9 @@ checkoutController.post('/:orderId', function (req, res) {
         var sendgrid = require("sendgrid")(conf.sendgrid.api_user, conf.sendgrid.api_key);
 
         var email = new sendgrid.Email();
-        email.addTo("santiago1717@gmail.com");
-        email.setFrom(req.requestOrder.email);
-        email.setSubject("Gracias por comprar tu Cuadrito");
+        email.setFrom("santiago1717@gmail.com");
+        email.addTo(req.requestOrder.email);
+        email.setSubject("Gracias por tu compra en Cuadrito");
         email.setHtml("Gracias por comprar tu cuadrito, en algunos momentos estaremos comunicandonos contigo al telefono que nos diste para ponernos de acuerdo con la entrega. <br> Muchas gracias! <br/> El equipo de Cuadrito.co");
         sendgrid.send(email);
 

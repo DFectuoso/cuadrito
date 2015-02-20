@@ -107,7 +107,7 @@ appController.post('/order/create', function (req, res) {
   newOrder.save(function (err, order) {
     if (err) console.log(err);
     order.generatePreview(function(posterUrl){
-      newOrder.posterUrl = posterUrl;
+      newOrder.previewUrl = posterUrl;
 
       newOrder.save(function (err, order) {
         if (err) { return res.status(500).send(err); }

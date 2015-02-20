@@ -119,10 +119,11 @@ forever start -a --sourceDir /root/cuadrito -o ../logs/cuadrito.log -e ../logs/c
 
 ### RoadMap
 
-* Mandar correo en cuanto se compra(con link al admin), ver porque no se esta mandando el otro
-* Que los correos qlleguen a las cuentas correctas
-* Arreglar que salga el preview_url
-
+* Store email in user, don't ask again - create a simple profile
+* Conservar el correcto estado desde "showed preview", "showed checkout", "success payments", "failed payment", "send" - permitir cambiar a send en el admin
+* Add email templates
+* Store address, also show as option previous address
+* Allow user to delete address and cc from profile
 * Evitar el problema de cuando mandamos un json muy largo en el request de pick
 * Mejorar imagen y experiencia del checkout
 * Arreglar el proceso de seleccionar imagenes de instagram
