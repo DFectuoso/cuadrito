@@ -2,7 +2,6 @@ form{
   color: #333333;
 }
 
-
 #content {
   background-color:#fff;
   color:black;
@@ -26,7 +25,7 @@ form{
 
 #content input[type=text] {
   border:none;
-  background:#DAE5FF;
+  background:#4d576d;
   -webkit-box-shadow:none;
   -moz-box-shadow:none;
   box-shadow:none;
@@ -44,7 +43,7 @@ form{
 
 #content textarea {
   border:none;
-  background-color:#DAE5FF;
+  background-color:#4d576d;
   -webkit-box-shadow:none;
   -moz-box-shadow:none;
   box-shadow:none;

@@ -119,5 +119,10 @@ forever start -a --sourceDir /root/cuadrito -o ../logs/cuadrito.log -e ../logs/c
 
 ### RoadMap
 
+* Mandar correo en cuanto se compra(con link al admin), ver porque no se esta mandando el otro
+* Que los correos qlleguen a las cuentas correctas
+* Arreglar que salga el preview_url
+
+* Evitar el problema de cuando mandamos un json muy largo en el request de pick
 * Mejorar imagen y experiencia del checkout
 * Arreglar el proceso de seleccionar imagenes de instagram
