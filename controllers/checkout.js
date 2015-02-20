@@ -38,7 +38,7 @@ checkoutController.get('/:orderId', function (req, res) {
 checkoutController.post('/:orderId', function (req, res) {
   mixpanel.track("Process checkout", {distinct_id:res.locals.user.username});
 
-  var price = 24900;
+  var price = 19900;
 
   req.requestOrder.address = req.body.address
   req.requestOrder.phone = req.body.phone
