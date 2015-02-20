@@ -7,7 +7,7 @@
   <script type="text/javascript" src="https://conektaapi.s3.amazonaws.com/v0.3.2/js/conekta.js"></script>
 
   <script type="text/javascript">
-    Conekta.setPublishableKey({{conektaPublishableKey}});
+    Conekta.setPublishableKey("{{conektaPublishableKey}}");
 
     var conektaErrorResponseHandler;
     conektaErrorResponseHandler = function(response) {
@@ -34,7 +34,6 @@
       });
 
       $("#card-form").submit(function(event) {
-
         if($("input:radio[name=cardOptions]:checked").val() == "newCard"){
           var $form;
           $form = $(this);
