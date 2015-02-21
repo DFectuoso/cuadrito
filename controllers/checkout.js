@@ -5,6 +5,7 @@ var controller     = require('stackers'),
     conf           = require('./../conf'),
     userMiddleware = require('../middleware/user'),
     superagent     = require('superagent'),
+    conekta        = require('../lib/conekta'),
     Mixpanel       = require('mixpanel');
 
 var mixpanel = Mixpanel.init(conf.mixpanel.id);
@@ -24,12 +25,14 @@ checkoutController.beforeEach(userMiddleware.getUser);
 checkoutController.get('/:orderId', function (req, res) {
   mixpanel.track("Show checkout", {distinct_id:res.locals.user.username});
 
-  getCreditCardsForCustomer(res.locals.user.conekta_customer_id, function(err, conektaRes){
+  console.log("Cliente: " + res.locals.user.conekta_customer_id)
+  conekta.getCreditCardsForCustomer(conf.conekta.privateKey, res.locals.user.conekta_customer_id, function(err, conektaRes){
     if(err) return res.status(500).send(err);
 
     // Get CCs
     req.cards = conektaRes.body.cards
     req.defaultCardId = conektaRes.body.default_card_id
+    console.log(req.defaultCardId);
     res.render('app/product', req);
   })
 });
@@ -37,7 +40,6 @@ checkoutController.get('/:orderId', function (req, res) {
 /// Process the checkout
 checkoutController.post('/:orderId', function (req, res) {
   mixpanel.track("Process checkout", {distinct_id:res.locals.user.username});
-
   var price = 19900;
 
   req.requestOrder.address = req.body.address
@@ -50,7 +52,9 @@ checkoutController.post('/:orderId', function (req, res) {
     var handler = function(err, conektaRes){
       if(err) return res.send(500,err);
 
-      charge(res.locals.user.conekta_customer_id, price, "Poster de Instagram", function(err, conektaRes){
+      console.log(conektaRes);
+
+      conekta.charge(conf.conekta.privateKey,res.locals.user.conekta_customer_id, price, "Poster de Instagram", function(err, conektaRes){
         if(err) return res.send(500,err);
 
         mixpanel.people.track_charge(res.locals.user.username, price / 100);
@@ -85,60 +89,13 @@ checkoutController.post('/:orderId', function (req, res) {
 
     // If we have a conektaTokenId, it means we just tokenized this card
     if (req.body.conektaTokenId){
-      addCardToCustomer(res.locals.user.conekta_customer_id, req.body.conektaTokenId, handler)
+      conekta.addCardToCustomer(conf.conekta.privateKey, res.locals.user.conekta_customer_id, req.body.conektaTokenId, handler)
     } else {
-      setCardAsActive(res.locals.user.conekta_customer_id, req.body.cardOptions, handler)
+      conekta.setCardAsActive(conf.conekta.privateKey, res.locals.user.conekta_customer_id, req.body.cardOptions, handler)
     }
 
   });
 });
 
-function addCardToCustomer(customerId, cardToken, callback){
-  superagent
-    .post('https://api.conekta.io/customers/' + customerId + '/cards/')
-    .auth(conf.conekta.privateKey, '')
-    .set('Content-type', 'application/json')
-    .set('Accept', 'application/vnd.conekta-v1.0.0+json')
-    .send({
-      token: cardToken,
-    })
-    .end(callback);
-}
-
-function setCardAsActive(customerId, cardId, callback){
-  superagent
-    .put('https://api.conekta.io/customers/' + customerId)
-    .auth(conf.conekta.privateKey, '')
-    .set('Content-type', 'application/json')
-    .set('Accept', 'application/vnd.conekta-v1.0.0+json')
-    .send({
-      default_card_id: cardId,
-    })
-    .end(callback);
-}
-
-function charge(customerId, amount, description, callback){
-  superagent
-    .post('https://api.conekta.io/charges')
-    .auth(conf.conekta.privateKey, '')
-    .set('Content-type', 'application/json')
-    .set('Accept', 'application/vnd.conekta-v1.0.0+json')
-    .send({
-      card : customerId,
-      amount : amount,
-      description : description
-    })
-    .end(callback);
-}
-
-function getCreditCardsForCustomer(customerId, callback){
-  console.log("about to ping " + 'https://api.conekta.io/customers/' + customerId)
-  superagent
-    .get('https://api.conekta.io/customers/' + customerId)
-    .auth(conf.conekta.privateKey, '')
-    .set('Content-type', 'application/json')
-    .set('Accept', 'application/vnd.conekta-v1.0.0+json')
-    .end(callback);
-}
 
 module.exports = checkoutController;

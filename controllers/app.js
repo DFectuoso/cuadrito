@@ -7,7 +7,6 @@ var controller     = require('stackers'),
 		conf           = require('./../conf'),
 		async          = require('async'),
 		userMiddleware = require('../middleware/user'),
-		superagent     = require('superagent'),
     Mixpanel       = require('mixpanel');
 
 var mixpanel = Mixpanel.init(conf.mixpanel.id);
@@ -91,7 +90,6 @@ appController.post('/predownload/image', function (req, res) {
 
 // After the user has selected enough photos, create the order and the poster
 appController.post('/order/create', function (req, res) {
-
 	var price = 19900;
 
   mixpanel.track("Picked photos for product", {product: req.body.product, quantity: req.body.quantity, photos:JSON.parse(req.body.photos),distinct_id:res.locals.user.username});

@@ -73,7 +73,7 @@
           {% for card in cards %}
             <div class="radio">
               <label>
-                <input type="radio" name="cardOptions" value={{card.id}} {% if defaultCardId == card.id %}checked{% endif %}>
+                <input type="radio" name="cardOptions" value="{{card.id}}" {% if defaultCardId == card.id %}checked{% endif %}>
                 **** **** **** {{card.last4}} ({{card.brand}})
               </label>
             </div>

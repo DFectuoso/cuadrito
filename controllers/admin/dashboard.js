@@ -20,7 +20,6 @@ dashboardAdminController.get('', function (req, res) {
   var queries = {};
 
   var totalUsers = User.count({});
-
   queries.totalUsers = function(done){
     totalUsers.exec(function(err, totalUsers){
       done(err, totalUsers);
@@ -28,13 +27,11 @@ dashboardAdminController.get('', function (req, res) {
   };
 
   var totalOrders = Order.count({});
-
   queries.totalOrders = function(done){
     totalOrders.exec(function(err, totalOrders){
       done(err, totalOrders);
     });
   };
-
 
   async.parallel(queries, function(err, data){
     req.totalUsers = data.totalUsers;
@@ -42,8 +39,6 @@ dashboardAdminController.get('', function (req, res) {
 
     res.render('admin/index', req);
   });
-
 });
-
 
 module.exports = dashboardAdminController;
