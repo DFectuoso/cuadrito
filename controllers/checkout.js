@@ -5,10 +5,11 @@ var controller     = require('stackers'),
     conf           = require('./../conf'),
     userMiddleware = require('../middleware/user'),
     superagent     = require('superagent'),
-    conekta        = require('../lib/conekta'),
+    Conekta        = require('../lib/conekta'),
     Mixpanel       = require('mixpanel');
 
 var mixpanel = Mixpanel.init(conf.mixpanel.id);
+var conekta = Conekta.init(conf.conekta.privateKey);
 
 var Order = db.model('order'),
     User  = db.model('user');
@@ -26,7 +27,7 @@ checkoutController.get('/:orderId', function (req, res) {
   mixpanel.track("Show checkout", {distinct_id:res.locals.user.username});
 
   console.log("Cliente: " + res.locals.user.conekta_customer_id)
-  conekta.getCreditCardsForCustomer(conf.conekta.privateKey, res.locals.user.conekta_customer_id, function(err, conektaRes){
+  conekta.getCreditCardsForCustomer(res.locals.user.conekta_customer_id, function(err, conektaRes){
     if(err) return res.status(500).send(err);
 
     // Get CCs
@@ -54,7 +55,7 @@ checkoutController.post('/:orderId', function (req, res) {
 
       console.log(conektaRes);
 
-      conekta.charge(conf.conekta.privateKey,res.locals.user.conekta_customer_id, price, "Poster de Instagram", function(err, conektaRes){
+      conekta.charge(res.locals.user.conekta_customer_id, price, "Poster de Instagram", function(err, conektaRes){
         if(err) return res.send(500,err);
 
         mixpanel.people.track_charge(res.locals.user.username, price / 100);
@@ -89,9 +90,9 @@ checkoutController.post('/:orderId', function (req, res) {
 
     // If we have a conektaTokenId, it means we just tokenized this card
     if (req.body.conektaTokenId){
-      conekta.addCardToCustomer(conf.conekta.privateKey, res.locals.user.conekta_customer_id, req.body.conektaTokenId, handler)
+      conekta.addCardToCustomer(res.locals.user.conekta_customer_id, req.body.conektaTokenId, handler)
     } else {
-      conekta.setCardAsActive(conf.conekta.privateKey, res.locals.user.conekta_customer_id, req.body.cardOptions, handler)
+      conekta.setCardAsActive(res.locals.user.conekta_customer_id, req.body.cardOptions, handler)
     }
 
   });
