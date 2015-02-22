@@ -5,7 +5,7 @@ var controller     = require('stackers'),
     conf           = require('./../conf'),
     userMiddleware = require('../middleware/user'),
     superagent     = require('superagent'),
-    Conekta        = require('../lib/conekta'),
+    Conekta        = require('conekta-node'),
     Mixpanel       = require('mixpanel');
 
 var mixpanel = Mixpanel.init(conf.mixpanel.id);

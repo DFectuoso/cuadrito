@@ -1,5 +1,5 @@
 {
-  "name": "reddit-client",
+  "name": "cuadrito",
   "version": "0.0.0",
   "dependencies": {
     "express": "~4.10.2",
@@ -20,7 +20,8 @@
     "canvas" : "1.1.6",
     "download" : "latest",
     "moment" : "latest",
-    "mixpanel" : "latest"
+    "mixpanel" : "latest",
+    "conekta-node" : "latest"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
