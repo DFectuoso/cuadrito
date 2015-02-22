@@ -119,8 +119,6 @@ forever start -a --sourceDir /root/cuadrito -o ../logs/cuadrito.log -e ../logs/c
 
 ### RoadMap
 
-* refactor stuff(?)
-
 * Store email in user, don't ask again - create a simple profile
 * Store address, also show as option previous address
 * Conservar el correcto estado desde "showed preview", "showed checkout", "success payments", "failed payment", "send" - permitir cambiar a send en el admin

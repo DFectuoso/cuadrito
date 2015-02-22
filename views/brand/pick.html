@@ -1,0 +1,76 @@
+{% extends '../layouts/app.html' %}
+
+{% block title %}Productos{% endblock %}
+
+{% block head %}
+  <link href="/css/brand.css" rel="stylesheet">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    var next_url = "";
+
+    jQuery(function($) {
+      $("#nextStepButton").click(function(){
+        window.location.href = "/chivas/checkout";
+      })
+
+      $(".brandphoto").click(function(){
+        // We clicked one, let's preload it on the server
+        $(this).addClass("faded");
+      })
+
+    });
+
+  </script>
+{% endblock %}
+{% block content %}
+<div class="banner" style="color:black;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <ul id="og-grid" class="og-grid">
+          <li class="brandphoto">
+            <a href="javascript:void(0);" id="925661719659912568_1368785102">
+              <img src="/img/chivas1.png">
+            </a>
+          </li>
+          <li class="brandphoto">
+            <a href="javascript:void(0);" id="925661719659912568_1368785102">
+              <img src="/img/chivas2.png">
+            </a>
+          </li>
+          <li class="brandphoto">
+            <a href="javascript:void(0);" id="925661719659912568_1368785102">
+              <img src="/img/chivas3.png">
+            </a>
+          </li>
+          <li class="brandphoto">
+            <a href="javascript:void(0);" id="925661719659912568_1368785102">
+              <img src="/img/chivas4.png">
+            </a>
+          </li>
+          <li class="brandphoto">
+            <a href="javascript:void(0);" id="925661719659912568_1368785102">
+              <img src="/img/chivas5.png">
+            </a>
+          </li>
+          <li class="brandphoto">
+            <a href="javascript:void(0);" id="925661719659912568_1368785102">
+              <img src="/img/chivas6.png">
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12" style="text-align:center;">
+        <button class="btn btn-success btn-lg" id="nextStepButton"> Siguiente paso </button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

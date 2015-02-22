@@ -1,0 +1,42 @@
+{% extends '../layouts/app.html' %}
+
+{% block title %}Chivas{% endblock %}
+
+{% block head %}
+<link href="/css/brand.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="banner" style="color:black;">
+  <h1 style="margin-bottom:10px;">Selecciona tu evento</h1>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <ul id="og-grid" class="og-grid">
+          <li>
+            <a href="/chivas/photos/pick">
+              <img src="/img/brand-1.png"/>
+              #theVenture <br/>
+            </a>
+          </li>
+          <li>
+            <a href="/chivas/photos/pick">
+              <img src="/img/brand-2.png"/>
+              #chivalry <br/>
+            </a>
+          </li>
+          <li>
+            <a href="/chivas/photos/pick">
+              <img src="/img/brand-3.png"/>
+              #artOfHosting <br/>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

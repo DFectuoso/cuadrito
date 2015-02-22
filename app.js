@@ -82,10 +82,12 @@ app.post('/contactForm', function (req, res) {
 var loginController = require('./controllers/login');
 var appController = require('./controllers/app');
 var checkoutController = require('./controllers/checkout');
+var brandController = require('./controllers/brand');
 
 checkoutController(app);
 loginController(app);
 appController(app);
+brandController(app);
 
 // Admin controllers
 var adminDashboard = require('./controllers/admin/dashboard.js');
