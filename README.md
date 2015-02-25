@@ -84,6 +84,14 @@ Tener corriendo mongo y redis. En una terminal correr:
 mongod
 ```
 
+o con un path en especifico:
+
+```
+mongod --dbpath ./mongodb
+```
+
+Tanto para mongo como para redis, puedes usar screen para dejarlo corriendo, puedes agregar "screen" antes de correr mongo y reddis y despues salir de esa pantalla con: screen "control a" + d
+
 En otra terminal correr redis:
 
 ```
@@ -119,6 +127,7 @@ forever start -a --sourceDir /root/cuadrito -o ../logs/cuadrito.log -e ../logs/c
 
 ### RoadMap
 
+* Make stuff
 * Store email in user, don't ask again - create a simple profile
 * Store address, also show as option previous address
 * Conservar el correcto estado desde "showed preview", "showed checkout", "success payments", "failed payment", "send" - permitir cambiar a send en el admin
