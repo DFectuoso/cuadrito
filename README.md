@@ -124,15 +124,3 @@ Correr la aplicación con sus respectivos logs:
 ```
 forever start -a --sourceDir /root/cuadrito -o ../logs/cuadrito.log -e ../logs/cuadrito.error.log -l ../logs/forever.log app.js
 ```
-
-### RoadMap
-
-* Make stuff
-* Store email in user, don't ask again - create a simple profile
-* Store address, also show as option previous address
-* Conservar el correcto estado desde "showed preview", "showed checkout", "success payments", "failed payment", "send" - permitir cambiar a send en el admin
-* Add email templates
-* Allow user to delete address and cc from profile
-* Evitar el problema de cuando mandamos un json muy largo en el request de pick
-* Mejorar imagen y experiencia del checkout
-* Arreglar el proceso de seleccionar imagenes de instagram
