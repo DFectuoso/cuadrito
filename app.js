@@ -47,8 +47,8 @@ if (conf.env === 'production') {
 // Add session to the app
 var RedisStore = require('connect-redis')(session);
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '2mb'}));
+app.use(bodyParser.urlencoded({ limit: '2mb', extended: false }));
 app.use(logger(':status :req[x-real-ip] :method :response-time ms :url'));
 app.use(session({
 	store: new RedisStore(conf.redis.options),
