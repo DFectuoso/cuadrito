@@ -21,7 +21,8 @@
     "download" : "latest",
     "moment" : "latest",
     "mixpanel" : "latest",
-    "conekta-node" : "latest"
+    "conekta-node" : "latest",
+    "email-templates" : "latest"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

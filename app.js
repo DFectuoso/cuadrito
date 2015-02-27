@@ -127,6 +127,7 @@ app.param('orderId', function(req,res, next, id){
 /// LOCALS ///
 //////////////
 app.locals.mixpanel = conf.mixpanel.id;
+app.locals.baseUrl = conf.baseUrl;
 app.locals.conektaPublishableKey = conf.conekta.publicKey;
 
 app.listen(conf.port);

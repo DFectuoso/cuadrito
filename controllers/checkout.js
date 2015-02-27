@@ -6,7 +6,8 @@ var controller     = require('stackers'),
     userMiddleware = require('../middleware/user'),
     superagent     = require('superagent'),
     Conekta        = require('conekta-node'),
-    Mixpanel       = require('mixpanel');
+    Mixpanel       = require('mixpanel'),
+    email          = require('../middleware/email');
 
 var mixpanel = Mixpanel.init(conf.mixpanel.id);
 var conekta = Conekta.init(conf.conekta.privateKey);
@@ -43,6 +44,9 @@ checkoutController.post('/:orderId', function (req, res) {
   mixpanel.track("Process checkout", {distinct_id:res.locals.user.username});
   var price = 19900;
 
+
+  /// Store email and phone on the user
+
   req.requestOrder.address = req.body.address
   req.requestOrder.phone = req.body.phone
   req.requestOrder.email = req.body.email
@@ -53,36 +57,24 @@ checkoutController.post('/:orderId', function (req, res) {
     var handler = function(err, conektaRes){
       if(err) return res.send(500,err);
 
-      console.log(conektaRes);
-
       conekta.charge(res.locals.user.conekta_customer_id, price, "Poster de Instagram", function(err, conektaRes){
         if(err) return res.send(500,err);
 
         mixpanel.people.track_charge(res.locals.user.username, price / 100);
 
-        var sendgrid = require("sendgrid")(conf.sendgrid.api_user, conf.sendgrid.api_key);
-
-        var email = new sendgrid.Email();
-        email.setFrom("santiago1717@gmail.com");
-        email.addTo(req.requestOrder.email);
-        email.setSubject("Gracias por tu compra en Cuadrito");
-        email.setHtml("Gracias por comprar tu cuadrito, en algunos momentos estaremos comunicandonos contigo al telefono que nos diste para ponernos de acuerdo con la entrega. <br> Muchas gracias! <br/> El equipo de Cuadrito.co");
-        sendgrid.send(email);
+        var emailData = {
+          order        : req.requestOrder,
+          printablePrice : price / 100,
+        };
+        email.sendEmail("salesConfirmation", emailData, 'Gracias por tu compra en Cuadrito', req.requestOrder.email);
 
         req.requestOrder.generatePrintables(function(order){
-          var email = new sendgrid.Email();
-          email.addTo("santiago1717@gmail.com");
-          email.setFrom("santiago1717@gmail.com");
-          email.setSubject("COMPRA EN CUADRITO");
-
-          var printable = "";
-          for(var i = 0; i < order.printables.length; i++){
-            printable += "<br/>Printable " + i + ": " + order.printables[i];
-          }
-
-          email.setHtml("ADDRESS: " + req.requestOrder.address + " <br>Phone: " + req.requestOrder.phone + " <br>email : " + req.requestOrder.email + " <br>Cuadrito: " + printable);
-          sendgrid.send(email);
-        })
+          var emailData = {
+            order        : req.requestOrder,
+            printablePrice : price / 100,
+          };
+          email.sendEmail("internalSale", emailData, 'Compra en cuadrito!', conf.fromEmail);
+        });
 
         res.render('app/purchase', req);
       })
