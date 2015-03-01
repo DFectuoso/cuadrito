@@ -26,12 +26,6 @@ var appController = controller({
 // Validate every request and preload User session information
 appController.beforeEach(userMiddleware.getUser);
 
-// Render the basic options from app/index, hardcoded for now
-appController.get('', function (req, res) {
-  mixpanel.track("showed products", {distinct_id:res.locals.user.username});
-	res.render('app/index', req);
-});
-
 // Select the small or large poster and render app/pick, this is our main app,
 // the rest of the interactions happen from ajax request
 appController.get('/photos/pick', function (req, res) {

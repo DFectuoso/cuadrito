@@ -2,6 +2,12 @@
 
 {% block title %}Cuadrito{% endblock %}
 
+{% block head %}
+	<script type="text/javascript">
+		mixpanel.track("Showed homepage");
+	</script>
+{% endblock %}
+
 {% block body %}
 <div id="main" class="container clear-top cover">
 	<div class="row">

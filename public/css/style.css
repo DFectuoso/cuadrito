@@ -154,3 +154,35 @@ body{
     padding: 40px;
 }
 /* End Content */
+
+/* Start Pick screen */
+
+.instaphoto {
+  padding: 10px;
+  max-width: 250px;
+  border-radius: 15px;
+}
+
+.faded{
+  opacity: 0.4;
+  filter: alpha(opacity=40); /* msie */
+}
+
+.pick-header{
+  padding: 10px 0;
+}
+
+.pick-header .left{
+
+}
+
+.pick-header .right{
+  text-align: right;
+  color: #0089ca;
+}
+
+.pick-footer {
+  padding: 20px 0;
+}
+
+/* End Pick screen */

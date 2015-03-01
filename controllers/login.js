@@ -19,10 +19,16 @@ var scope = conf.instagramoauth.scope;
 var redirect_uri = conf.instagramoauth.redirectUri;
 
 loginController.get('/login', function (req, res) {
-	if (req.session && req.session.passport && req.session.passport.user) {
-		return res.redirect('/app');
+	var redirect_url = "/app/photos/pick"
+	if(req.param('redirect') === 'brand'){
+		redirect_url = "/chivas/photos/pick"
 	}
 
+	if (req.session && req.session.passport && req.session.passport.user) {
+		return res.redirect(redirect_url);
+	}
+
+	req.session.redirect_url = redirect_url
 	res.redirect(ig.get_authorization_url(redirect_uri, { scope: scope }));
 });
 
@@ -47,7 +53,7 @@ loginController.get('/oauth', function (req, res) {
 						if (err) { res.status(500).send(err); }
 
 						req.session.user = user._id.toString();
-						res.redirect('/app');
+						res.redirect(req.session.redirect_url);
 					});
 				}else{
 					// New User
@@ -62,7 +68,7 @@ loginController.get('/oauth', function (req, res) {
 						user.createConektaCustomer();
 
 						req.session.user = user._id.toString();
-						res.redirect('/app');
+						res.redirect(req.session.redirect_url);
 					});
 				}
 			});

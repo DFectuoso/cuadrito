@@ -59,9 +59,6 @@ app.use(session({
 app.use(flash());
 
 app.get('/', function (req, res) {
-	if (req.session.user) {
-		return res.redirect('/app');
-	}
 	res.render('home/index');
 });
 

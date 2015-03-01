@@ -2,12 +2,13 @@
 
 {% block title %}Productos{% endblock %}
 
-{% block head %}
-  <link href="/css/brand.css" rel="stylesheet">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
+{% block javascript %}
   <script type="text/javascript">
-    var next_url = "";
+    var total = 0;
+
+    function updateScore(){
+      $("#score").html(total);
+    }
 
     jQuery(function($) {
       $("#nextStepButton").click(function(){
@@ -17,60 +18,67 @@
       $(".brandphoto").click(function(){
         // We clicked one, let's preload it on the server
         $(this).addClass("faded");
+        total = total + 1;
+        updateScore();
       })
 
     });
 
   </script>
 {% endblock %}
+
+{% block logo %}
+  <img src="/imgs/chivasLogoWhite.png"/>
+{% endblock %}
+
 {% block content %}
-<div class="banner" style="color:black;">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <ul id="og-grid" class="og-grid">
-          <li class="brandphoto">
-            <a href="javascript:void(0);" id="925661719659912568_1368785102">
-              <img src="/img/chivas1.png">
-            </a>
-          </li>
-          <li class="brandphoto">
-            <a href="javascript:void(0);" id="925661719659912568_1368785102">
-              <img src="/img/chivas2.png">
-            </a>
-          </li>
-          <li class="brandphoto">
-            <a href="javascript:void(0);" id="925661719659912568_1368785102">
-              <img src="/img/chivas3.png">
-            </a>
-          </li>
-          <li class="brandphoto">
-            <a href="javascript:void(0);" id="925661719659912568_1368785102">
-              <img src="/img/chivas4.png">
-            </a>
-          </li>
-          <li class="brandphoto">
-            <a href="javascript:void(0);" id="925661719659912568_1368785102">
-              <img src="/img/chivas5.png">
-            </a>
-          </li>
-          <li class="brandphoto">
-            <a href="javascript:void(0);" id="925661719659912568_1368785102">
-              <img src="/img/chivas6.png">
-            </a>
-          </li>
 
-        </ul>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-12" style="text-align:center;">
-        <button class="btn btn-success btn-lg" id="nextStepButton"> Siguiente paso </button>
-      </div>
-    </div>
-
+<div class="row pick-header">
+  <div class="col-md-6 left">
+    <h2>#Posada500</h2>
   </div>
-
+  <div class="col-md-6 right">
+    <h2><span id="score">0</span> de 20 fotos</h2>
+  </div>
 </div>
+
+<div class="row">
+  <div class="col-md-3 col-sm-12 col-xs-12 brandphoto">
+    <a href="javascript:void(0);">
+      <img src="/imgs/chivas1.png" class="img-rounded instaphoto img-responsive">
+    </a>
+  </div>
+  <div class="col-md-3 col-sm-12 col-xs-12 brandphoto">
+    <a href="javascript:void(0);">
+      <img src="/imgs/chivas2.png" class="img-rounded instaphoto img-responsive">
+    </a>
+  </div>
+  <div class="col-md-3 col-sm-12 col-xs-12 brandphoto">
+    <a href="javascript:void(0);">
+      <img src="/imgs/chivas3.png" class="img-rounded instaphoto img-responsive">
+    </a>
+  </div>
+  <div class="col-md-3 col-sm-12 col-xs-12 brandphoto">
+    <a href="javascript:void(0);">
+      <img src="/imgs/chivas4.png" class="img-rounded instaphoto img-responsive">
+    </a>
+  </div>
+  <div class="col-md-3 col-sm-12 col-xs-12 brandphoto">
+    <a href="javascript:void(0);">
+      <img src="/imgs/chivas5.png" class="img-rounded instaphoto img-responsive">
+    </a>
+  </div>
+  <div class="col-md-3 col-sm-12 col-xs-12 brandphoto">
+    <a href="javascript:void(0);">
+      <img src="/imgs/chivas6.png" class="img-rounded instaphoto img-responsive">
+    </a>
+  </div>
+</div>
+
+<div class="row pick-footer">
+  <div class="col-lg-12" style="text-align:center;">
+    <button class="btn btn-success btn-lg" id="nextStepButton"> Siguiente paso </button>
+  </div>
+</div>
+
 {% endblock %}

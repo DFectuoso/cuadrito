@@ -23,26 +23,23 @@ var brandController = controller({
   path : '/chivas'
 });
 
-// Validate every request and preload User session information
-brandController.beforeEach(userMiddleware.getUser);
 
 // Render the basic options from app/index, hardcoded for now
 brandController.get('', function (req, res) {
-  mixpanel.track("showed chivas", {distinct_id:res.locals.user.username});
   res.render('brand/index', req);
 });
 
-brandController.get('/photos/pick', function (req, res) {
+brandController.get('/photos/pick', userMiddleware.getUser, function (req, res) {
   mixpanel.track("picked chivas event", {distinct_id:res.locals.user.username});
   res.render('brand/pick', req);
 });
 
-brandController.get('/checkout', function (req, res) {
+brandController.get('/checkout', userMiddleware.getUser, function (req, res) {
   mixpanel.track("picked chivas photos", {distinct_id:res.locals.user.username});
   res.render('brand/checkout', req);
 });
 
-brandController.post('/checkout', function (req, res) {
+brandController.post('/checkout', userMiddleware.getUser, function (req, res) {
   mixpanel.track("picked chivas finished", {distinct_id:res.locals.user.username});
   res.render('brand/thanks', req);
 });

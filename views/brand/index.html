@@ -2,6 +2,12 @@
 
 {% block title %}Cuadrito{% endblock %}
 
+{% block head %}
+	<script type="text/javascript">
+		mixpanel.track("Showed chivas homepage");
+	</script>
+{% endblock %}
+
 {% block body %}
 <div id="main" class="container clear-top cover">
 	<div class="row">
@@ -42,7 +48,7 @@
 				<h4>20 fotos</h4>
         <h4>Gratis</h4>
 				<h4><strike>$129.00 + envío</strike></h4>
-				<a href="/login" class="btn btn-default btn-lg">
+				<a href="/login?redirect=brand" class="btn btn-default btn-lg">
 					<span class="fa fa-instagram " aria-hidden="true"></span> ELIGE TUS FOTOS
 				</a>
 			</div>

@@ -2,10 +2,8 @@
 
 {% block title %}Comprar{% endblock %}
 
-{% block head %}
-  <link href="/css/brand.css" rel="stylesheet">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script type="text/javascript" src="https://conektaapi.s3.amazonaws.com/v0.3.2/js/conekta.js"></script>
+{% block logo %}
+  <img src="/imgs/chivasLogoWhite.png"/>
 {% endblock %}
 
 {% block content %}
@@ -40,14 +38,13 @@
         </div>
       </div>
 
-      <div class="row purchase-button">
+      <div class="row purchase-button" style="padding: 10px 0 0 120px;">
           <button type="submit" class="btn btn-success btn-lg">Pedir ahora!</button>
       </div>
 
     </form>
   </div>
 </div>
-
 
 
 {% endblock %}
