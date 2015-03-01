@@ -65,19 +65,6 @@ app.get('/', function (req, res) {
 	res.render('home/index');
 });
 
-app.post('/contactForm', function (req, res) {
-	var sendgrid = require("sendgrid")(conf.sendgrid.api_user, conf.sendgrid.api_key);
-	var email = new sendgrid.Email();
-
-	email.addTo("santiago1717@gmail.com");
-	email.setFrom("santiago1717@gmail.com");
-	email.setSubject("Contact form Cuadrito.co");
-	email.setHtml("Name: " + req.body.name + " Email: " + req.body.email + " Message: " + req.body.message);
-
-	sendgrid.send(email);
-	res.render('home/contacted');
-});
-
 // Controllers
 var loginController = require('./controllers/login');
 var appController = require('./controllers/app');
