@@ -1,14 +1,52 @@
-{% extends '../layouts/main.html' %}
+{% extends '../layouts/base.html' %}
 
 {% block title %}Cuadrito{% endblock %}
 
-{% block head %}
-{% endblock %}
+{% block body %}
+<div id="main" class="container clear-top cover">
+	<div class="row">
+		<div class="col-md-12 .col-xs-12 rightColumn">
+			<h4 class="support">Atención a Clientes: <strong> (55) 55 87 90 92 </strong></h4>
+		</div>
+	</div>
+	<div class="row">
 
-{% block content %}
-<div class="banner">
-	<h1>Imprime tus fotos de instagram, en menos de 99 minutos.</h1>
-	<p class="lead">Entrega en el DF.</p>
-	<p><a class="btn btn-primary" href="/login">Comienza haciendo login con Instagram</a></p>
+		<div class="col-md-6 .col-xs-12">
+			<img src="imgs/Cuadrito.png" class="img-responsive">
+
+			<h1>Imprime fotos de Instagram</h1>
+			<p class="lead">Recíbelas en 24 horas o menos!</p>
+			<p>
+				Ya sea para un regalo, para decorar o simplemente
+				por disfrutar de la fotografía impresa,
+				selecciona 20 fotos y haz tu orden en unos cuantos clicks.
+			</p>
+			<p>
+				Tu te encargas de seleccionar las fotos, nosotros nos
+				encargamos de trabajar con los mejores impresores para generar
+				la mejor calidad y trabajamos con profesionales de envios!
+			</p>
+
+		</div>
+
+		<div class="col-md-6 .col-xs-12 rightColumn">
+
+			<img src="imgs/landing_photos_casual.png" id="previewPhotos" class="img-responsive"/>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-md-12 .col-xs-12 rightColumn price">
+			<div>
+				<h4>20 fotos</h4>
+				<h4>$129.00 + envío</h4>
+				<a href="/login" class="btn btn-default btn-lg">
+					<span class="fa fa-instagram " aria-hidden="true"></span> ELIGE TUS FOTOS
+				</a>
+			</div>
+		</div>
+	</div>
+
 </div>
 {% endblock %}
