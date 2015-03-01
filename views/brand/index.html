@@ -1,42 +1,53 @@
-{% extends '../layouts/app.html' %}
+{% extends '../layouts/base.html' %}
 
-{% block title %}Chivas{% endblock %}
+{% block title %}Cuadrito{% endblock %}
 
-{% block head %}
-<link href="/css/brand.css" rel="stylesheet">
-{% endblock %}
+{% block body %}
+<div id="main" class="container clear-top cover">
+	<div class="row">
+		<div class="col-md-12 .col-xs-12 rightColumn">
+			<h4 class="support">Atención a Clientes: <strong> (55) 12-09-17-85 </strong></h4>
+		</div>
+	</div>
+	<div class="row">
 
-{% block content %}
-<div class="banner" style="color:black;">
-  <h1 style="margin-bottom:10px;">Selecciona tu evento</h1>
+		<div class="col-md-6 .col-xs-12">
+			<img src="imgs/chivasLogo.png" class="img-responsive" style="padding-left:24px;">
 
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <ul id="og-grid" class="og-grid">
-          <li>
-            <a href="/chivas/photos/pick">
-              <img src="/img/brand-1.png"/>
-              #theVenture <br/>
-            </a>
-          </li>
-          <li>
-            <a href="/chivas/photos/pick">
-              <img src="/img/brand-2.png"/>
-              #chivalry <br/>
-            </a>
-          </li>
-          <li>
-            <a href="/chivas/photos/pick">
-              <img src="/img/brand-3.png"/>
-              #artOfHosting <br/>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
+			<h1>Chivas te regala tus fotos!</h1>
+			<p class="lead">Recíbelas tus fotos de la #500posada!</p>
+			<p>
+				Ya sea para un regalo, para decorar o simplemente
+				por disfrutar de la fotografía impresa,
+				selecciona 20 fotos y haz tu orden en unos cuantos clicks.
+			</p>
+			<p>
+				Tu te encargas de seleccionar las fotos, nosotros nos
+				encargamos de trabajar con los mejores impresores para generar
+				la mejor calidad y trabajamos con profesionales de envios!
+			</p>
 
-  </div>
+		</div>
+
+		<div class="col-md-6 .col-xs-12 rightColumn">
+
+			<img src="imgs/landing_photos_brand.png" id="previewPhotos" class="img-responsive"/>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-md-12 .col-xs-12 rightColumn price">
+			<div>
+				<h4>20 fotos</h4>
+        <h4>Gratis</h4>
+				<h4><strike>$129.00 + envío</strike></h4>
+				<a href="/login" class="btn btn-default btn-lg">
+					<span class="fa fa-instagram " aria-hidden="true"></span> ELIGE TUS FOTOS
+				</a>
+			</div>
+		</div>
+	</div>
 
 </div>
 {% endblock %}
