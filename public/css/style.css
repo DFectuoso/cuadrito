@@ -181,8 +181,26 @@ body{
   color: #0089ca;
 }
 
+.pick-header button{
+  margin-top: 20px;
+}
+
+.moreContainer{
+  text-align:center;
+  padding-top: 10px;
+}
+
 .pick-footer {
   padding: 20px 0;
 }
 
 /* End Pick screen */
+
+
+/* Checkout screen */
+
+.purchase-button{
+  text-align: center;
+}
+
+/* End Checkout screen */

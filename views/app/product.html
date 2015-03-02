@@ -59,13 +59,13 @@
 
 <div class="row">
   <div class="col-lg-10 col-lg-offset-1 main-text">
-    <h2>Imprime tus cuadrito $199.00 con envio!</h2>
+    <h2>Imprime tus fotos por $199.00 con envio en 24 horas!</h2>
   </div>
 </div>
 
 <div class="row">
   <div class="col-lg-10 col-lg-offset-1 main-text">
-    <form action="" method="POST" id="card-form">
+    <form action="" method="POST" id="card-form" data-toggle="validator">
 
       <span class="card-errors"></span>
       <div class="row">
@@ -101,7 +101,7 @@
                   <div class="form-row">
                     <label>Fecha de expiración (MM/AAAA)</label>
                     <div class="controls form-inline">
-                      <input type="text" size="2" data-conekta="card[exp_month]" class="form-control newCardInput expirationInput" />
+                      <input type="text" size="2" data-conekta="card[exp_month]" class="form-control newCardInput expirationInput"  />
                       <span>/</span>
                       <input type="text" size="4" data-conekta="card[exp_year]" class="form-control newCardInput expirationInput" />
                     </div>
@@ -114,18 +114,18 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <div class="col-md-5">
+          <div class="col-md-8">
             <div class="form-group">
-              <label for="telefono">Telefono</label>
-              <input type="text" id="telefono" size="20" name="phone" class="form-control" />
+              <label for="telefono">Telefono*</label>
+              <input type="text" id="telefono" size="20" name="phone" class="form-control" placeholder="(55) 55 55 55 55" required />
             </div>
             <div class="form-group">
-              <label for="email">Correo Electronico</label>
-              <input type="text" id="email" size="20" name="email" class="form-control" />
+              <label for="email">Correo Electronico*</label>
+              <input type="text" id="email" size="20" name="email" class="form-control" placeholder="nombre@correo.com" required />
             </div>
             <div class="form-group">
-              <label for="address">Direccion</label>
-              <textarea class="form-control" id="address" name="address"></textarea>
+              <label for="address">Direccion*</label>
+              <textarea class="form-control" id="address" name="address" placeholder="Calle 205, Colonia Tal. Entre tal y tal calle" required ></textarea>
             </div>
           </div>
 

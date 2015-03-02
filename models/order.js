@@ -207,7 +207,7 @@ Order.prototype.generatePrintables = function(callback){
     var width = 1063;
     var height = 1299;
     var padding = 106;
-    var remainingPhotos = 10;
+    var remainingPhotos = 20;
     var printables = []
 
     function saveCanvas(i, canvas, callback){

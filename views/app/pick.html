@@ -3,7 +3,7 @@
 {% block title %}Productos{% endblock %}
 
 
-{% block head %}
+{% block javascript %}
   <script type="text/javascript">
     var next_max_id;
     var category;
@@ -12,18 +12,26 @@
     var product = "{{product}}"
     var next_url = "";
 
+    function renderPhoto(id, url){
+
+      return '\
+        <div class="col-md-3 col-sm-12 col-xs-12 brandphoto" id=' + id + '>\
+          <a href="javascript:void(0);">\
+            <img src="' + url + '" class="img-rounded instaphoto img-responsive">\
+          </a>\
+        </div>';
+    }
+
     function clearPhotos(){
-      $("#og-grid").html("");
+      $("#photoGrid").html("");
     }
 
     function weAreDone(){
-      $("#og-grid").html("");
+      $("#photoGrid").html("");
       $("#loadMoreButton").hide();
 
       $.post("/app/order/create", {photos: JSON.stringify(photos), quantity: goal, product:product}, function(data, status){
-        $("#og-grid").append( "<li><img src='" + data.poster_url + "'/></li>" );
-        $("#nextStepButton").show();
-        next_url = data.redirect_url;
+        window.location.href = data.redirect_url;
       });
     }
 
@@ -37,7 +45,7 @@
       var permanentMedia = media;
       var url = media.images.low_resolution.url;
       var id = media.id;
-      $("#og-grid").append( "<li><a href='javascript:void(0);' id=" + id + "><img src='" + url + "'/></a></li>" );
+      $("#photoGrid").append( renderPhoto(id,url) );
       $("#"+id).click(function(){
         // We clicked one, let's preload it on the server
         photos.push(permanentMedia);
@@ -70,6 +78,7 @@
     }
 
     function getCategory(cat){
+      $(".btn-group button").removeClass("btn-primary")
       category = cat;
       $.get("/app/photos/category?cat="+cat, handleImages);
     }
@@ -77,20 +86,19 @@
     jQuery(function($) {
       $("#likedButton").click(function() {
         getCategory("liked")
+        $("#likedButton").addClass("btn-primary");
       });
       $("#uploadedButton").click(function() {
         getCategory("uploaded")
+        $("#uploadedButton").addClass("btn-primary");
       });
       $("#streamButton").click(function() {
         getCategory("stream")
+        $("#streamButton").addClass("btn-primary");
       });
       $("#loadMoreButton").click(function() {
         getMore()
       });
-
-      $("#nextStepButton").click(function(){
-        window.location.href = next_url;
-      })
 
       // prepick he liked row to start:
       $("#likedButton").click();
@@ -100,48 +108,30 @@
   </script>
 {% endblock %}
 {% block content %}
-<div class="banner" style="color:black;">
-  <div class="container">
 
-  <div class="row">
-    <div class="col-lg-2">
-      <h3>Navegar por:</h3>
-    </div>
-    <div class="col-lg-1">
-      <button class="btn btn-default btn-sm pickNavigationButton" id="likedButton">Liked</button>
-    </div>
-    <div class="col-lg-1">
-      <button class="btn btn-default btn-sm pickNavigationButton" id="uploadedButton">Uploaded</button>
-    </div>
-    <div class="col-lg-1">
-      <button class="btn btn-default btn-sm pickNavigationButton" id="streamButton">Stream</button>
-    </div>
-    <div class="col-lg-5">
 
-    </div>
-    <div class="col-lg-2">
-      <h3><span id="currentQuantity">0</span>/{{quantity}}</h3>
+
+<div class="row pick-header">
+  <div class="col-md-6 left">
+    <div class="btn-group" role="group">
+      <button class="btn btn-default btn-primary btn-lg pickNavigationButton" id="likedButton"><span class="fa fa-heart " aria-hidden="true"> Liked</button>
+      <button class="btn btn-default btn-lg pickNavigationButton" id="uploadedButton"><span class="fa fa-upload " aria-hidden="true"> Tuyas</button>
+      <button class="btn btn-default btn-lg pickNavigationButton" id="streamButton"><span class="fa fa-cloud " aria-hidden="true"> Tu feed</button>
     </div>
   </div>
-
-    <div class="row">
-      <div class="col-lg-12">
-        <ul id="og-grid" class="og-grid">
-        </ul>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <button class="btn btn-default btn-sm pickNavigationButton" id="loadMoreButton"> Cargar mas imagenes </button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12" style="text-align:center;">
-        <button class="btn btn-success btn-lg" id="nextStepButton" style="display:none;"> Siguiente paso </button>
-      </div>
-    </div>
-
+  <div class="col-md-6 right">
+    <h2><span id="currentQuantity">0</span> de {{quantity}} fotos</h2>
   </div>
-
 </div>
+
+
+<div class="row" id="photoGrid">
+</div>
+
+<div class="row">
+  <div class="col-lg-12 moreContainer">
+    <button class="btn btn-success btn-default btn-lg pickNavigationButton" id="loadMoreButton"><span class="fa fa-plus " aria-hidden="true"> Cargar mas imagenes</button>
+  </div>
+</div>
+
 {% endblock %}

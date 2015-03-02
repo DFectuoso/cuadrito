@@ -1,4 +1,4 @@
-<img src="{{baseUrl}}/img/logo.png"/>
+<img src="{{baseUrl}}/imgs/CuadritoText.png"/>
 
 <h1>Gracias por tu compra!</h1>
 <h2>Ahora mismo estamos corriendo a imprimir tus fotos!</h2>

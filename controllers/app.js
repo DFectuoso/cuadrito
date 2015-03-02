@@ -32,7 +32,7 @@ appController.get('/photos/pick', function (req, res) {
   req.product = req.param('product')
 
   // Default 11x9x10
-  req.quantity = 10
+  req.quantity = 20
   if (req.product == "30x30x4x4"){
     req.quantity = 16
   } else if (req.product == "30x30x5x5"){
