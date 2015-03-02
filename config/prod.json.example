@@ -19,6 +19,9 @@
   "mixpanel" : {
     "id" : "MIXPANEL ID"
   },
+  "googleAnalytics" : {
+    "id" : "Analytics ID"
+  },
   "sendgrid" : {
     "api_user" : "",
     "api_key" : ""
