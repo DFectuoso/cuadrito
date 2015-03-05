@@ -35,6 +35,7 @@ loginController.get('/login', function (req, res) {
 
 loginController.get('/oauth', function (req, res) {
 	var code = req.param('code');
+	var redirect_url = req.session.redirect_url || "/app/photos/pick"
 
 	ig.authorize_user(code, redirect_uri, function(err, result){
 		if (err) {
@@ -53,7 +54,7 @@ loginController.get('/oauth', function (req, res) {
 						if (err) { res.status(500).send(err); }
 
 						req.session.user = user._id.toString();
-						res.redirect(req.session.redirect_url);
+						res.redirect(redirect_url);
 					});
 				}else{
 					// New User
@@ -68,7 +69,7 @@ loginController.get('/oauth', function (req, res) {
 						user.createConektaCustomer();
 
 						req.session.user = user._id.toString();
-						res.redirect(req.session.redirect_url);
+						res.redirect(redirect_url);
 					});
 				}
 			});
